@@ -7,13 +7,8 @@ import {
   MonitorPlay,
   IndianRupee,
   BarChart3,
-  UserPlus,
-  UploadCloud,
   MapPin,
   Car,
-  CalendarDays,
-  CreditCard,
-  PlayCircle,
   Image as ImageIcon,
   QrCode,
   Percent,
@@ -39,7 +34,7 @@ import {
   MonitorSmartphone,
   ArrowRight,
 } from "lucide-react";
-import HeroIllustration from "@/components/HeroIllustration";
+import HeroScreen from "@/components/HeroScreen";
 import IconCard from "@/components/IconCard";
 import SectionHeading from "@/components/SectionHeading";
 import StatBadge from "@/components/StatBadge";
@@ -48,6 +43,12 @@ import TrackedLink from "@/components/TrackedLink";
 import Reveal from "@/components/Reveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import ScreensGallery from "@/components/ScreensGallery";
+import RotatingWord from "@/components/RotatingWord";
+import GradientBlobs from "@/components/GradientBlobs";
+import BrandMarquee from "@/components/BrandMarquee";
+import HowItWorksTimeline from "@/components/HowItWorksTimeline";
+import WaveDivider from "@/components/WaveDivider";
+import LiveTicker from "@/components/LiveTicker";
 import { WHATSAPP_LINK } from "@/lib/nav";
 
 const HERO_STATS = [
@@ -128,16 +129,6 @@ const WHY_CHOOSE = [
   },
 ];
 
-const HOW_IT_WORKS = [
-  { icon: UserPlus, label: "Create Account" },
-  { icon: UploadCloud, label: "Upload Ad" },
-  { icon: MapPin, label: "Choose City & Routes" },
-  { icon: Car, label: "Select Number of Cabs" },
-  { icon: CalendarDays, label: "Choose Duration & Schedule" },
-  { icon: CreditCard, label: "Make Payment" },
-  { icon: PlayCircle, label: "Campaign Goes Live" },
-];
-
 const AD_SOLUTIONS = [
   { icon: MonitorPlay, label: "Video Ads" },
   { icon: ImageIcon, label: "Image Ads" },
@@ -174,15 +165,18 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-brand-yellow">
-        <div className="container-page pt-10 pb-8 sm:pt-16 sm:pb-12 grid lg:grid-cols-2 gap-10 items-center">
+      <section className="relative overflow-hidden bg-brand-yellow">
+        <GradientBlobs />
+        <div className="relative container-page pt-10 pb-8 sm:pt-16 sm:pb-12 grid lg:grid-cols-2 gap-10 items-center">
           <div className="animate-fade-in-up">
             <h1 className="text-3xl sm:text-5xl font-extrabold text-brand-navy leading-tight">
               India&apos;s Smart
               <br />
               In-Cab Digital
               <br />
-              Advertising Network
+              <RotatingWord words={["Advertising", "Media", "Branding"]} />
+              <br />
+              Network
             </h1>
             <p className="mt-4 text-brand-navy/80 text-base sm:text-lg max-w-md">
               Reach thousands of passengers during every ride with high-impact
@@ -238,11 +232,11 @@ export default function Home() {
           </div>
 
           <div className="animate-fade-in-up [animation-delay:200ms]">
-            <HeroIllustration />
+            <HeroScreen />
           </div>
         </div>
 
-        <div className="container-page pb-8">
+        <div className="relative container-page pb-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm text-brand-navy/80 border-t border-brand-navy/15 pt-5">
             <span className="inline-flex items-center gap-1.5 font-medium">
               <Zap size={16} className="text-brand-navy" />A new way to
@@ -253,6 +247,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BrandMarquee />
 
       <ScreensGallery />
 
@@ -300,26 +296,14 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className="bg-brand-yellow py-16 sm:py-20">
+      <WaveDivider top="bg-white" bottom="text-brand-yellow" />
+      <section className="bg-brand-yellow pt-4 pb-16 sm:pb-20">
         <div className="container-page">
           <SectionHeading title="How It Works" />
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6">
-            {HOW_IT_WORKS.map((step, i) => (
-              <Reveal key={step.label} delay={i * 80} className="flex flex-col items-center text-center">
-                <div className="group flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-navy shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md">
-                  <step.icon size={26} className="transition-transform duration-300 group-hover:scale-110" />
-                </div>
-                <div className="mt-3 text-xs font-bold text-brand-navy/60">
-                  Step {i + 1}
-                </div>
-                <div className="mt-1 text-sm font-semibold text-brand-navy max-w-[9rem]">
-                  {step.label}
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <HowItWorksTimeline />
         </div>
       </section>
+      <WaveDivider top="bg-brand-yellow" bottom="text-white" />
 
       {/* Advertising solutions */}
       <section className="py-16 sm:py-20">
@@ -374,8 +358,10 @@ export default function Home() {
       </section>
 
       {/* Network stats */}
-      <section className="bg-brand-navy py-14">
+      <WaveDivider top="bg-white" bottom="text-brand-navy" />
+      <section className="bg-brand-navy pt-4 pb-14">
         <div className="container-page">
+          <LiveTicker />
           <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {NETWORK_STATS.map((stat, i) => (
               <StatBadge key={stat.label} {...stat} variant="dark" delay={i * 80} />
@@ -383,6 +369,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <WaveDivider top="bg-brand-navy" bottom="text-white" />
 
       {/* Who we serve */}
       <section className="py-16 sm:py-20">

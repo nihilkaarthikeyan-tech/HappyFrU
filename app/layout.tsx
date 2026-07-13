@@ -3,6 +3,8 @@ import { Poppins, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -34,9 +36,11 @@ export default function RootLayout({
       className={`${poppins.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
+        <ScrollProgress />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <BackToTop />
         <Analytics />
       </body>
     </html>
