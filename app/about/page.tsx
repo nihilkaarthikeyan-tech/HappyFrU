@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Lightbulb,
   Eye as EyeIcon,
@@ -6,16 +7,76 @@ import {
   Heart,
   Sparkles,
   TrendingUp,
+  CloudUpload,
+  CalendarClock,
+  Smartphone,
+  LineChart,
+  Activity,
+  Monitor,
+  Users,
+  MapPin,
+  Star,
+  Quote,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
+import WaveDivider from "@/components/WaveDivider";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 export const metadata: Metadata = {
   title: "About Us | HappyFrU",
   description:
     "Building India's smartest digital in-cab advertising ecosystem. Learn who HappyFrU is, why we started, and where we're headed.",
 };
+
+const QUICK_STATS = [
+  { icon: Monitor, value: "50+", label: "Screens Planned" },
+  { icon: Users, value: "25,000+", label: "Daily Reach" },
+  { icon: MapPin, value: "5+", label: "Cities" },
+  { icon: Star, value: "200+", label: "Brands Onboarded" },
+];
+
+const DIFFERENTIATORS = [
+  {
+    icon: CloudUpload,
+    title: "Cloud-Based Content Management",
+    description:
+      "Upload once and push to every screen instantly — no site visits, no delays.",
+  },
+  {
+    icon: CalendarClock,
+    title: "Intelligent Campaign Scheduling",
+    description:
+      "Auto-scheduled by city, route, duration, and the number of screens you book.",
+  },
+  {
+    icon: Smartphone,
+    title: "Android-Based Smart Displays",
+    description:
+      "Independent players with secure offline playback and automatic sync.",
+  },
+  {
+    icon: LineChart,
+    title: "Real-Time Analytics",
+    description:
+      "Impressions, playback stats, and QR interactions while the campaign runs.",
+  },
+  {
+    icon: Activity,
+    title: "Smart Device Monitoring",
+    description:
+      "Every screen reports health, connectivity, and playback status live.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Automatic Campaign Failover",
+    description:
+      "Offline screens reallocate to backups so delivery never stops.",
+  },
+];
 
 const VALUES = [
   {
@@ -34,13 +95,13 @@ const VALUES = [
     icon: Sparkles,
     title: "Reliability",
     description:
-      "Our cloud platform ensures stable advertisement delivery even during internet interruptions.",
+      "Our cloud platform ensures stable delivery even during internet interruptions.",
   },
   {
     icon: Heart,
     title: "Customer Success",
     description:
-      "Every campaign is designed to maximize advertiser visibility and business growth.",
+      "Every campaign is designed to maximize visibility and business growth.",
   },
 ];
 
@@ -74,179 +135,251 @@ export default function AboutPage() {
         subtitle="We are transforming everyday travel into a powerful communication platform by connecting businesses with passengers through intelligent digital displays installed inside commercial vehicles."
       />
 
+      {/* Lead statement + quick stats */}
       <section className="py-14 sm:py-16">
         <div className="container-page max-w-3xl mx-auto text-center">
-          <p className="text-brand-navy/80 text-base sm:text-lg leading-relaxed">
-            Our mission is to replace traditional static advertising with
-            measurable, cloud-connected digital media that delivers real
-            engagement, transparent reporting, and exceptional value for
-            advertisers. Every journey becomes an opportunity for brands to
-            educate, inspire, and connect with customers.
-          </p>
+          <Reveal>
+            <p className="text-xl sm:text-2xl font-semibold leading-relaxed text-brand-navy">
+              We replace traditional static advertising with measurable,
+              cloud-connected digital media that delivers real engagement,
+              transparent reporting, and exceptional value —{" "}
+              <span className="text-brand-yellow-dark">
+                turning every journey into an opportunity for brands to
+                connect.
+              </span>
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="container-page mt-12">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {QUICK_STATS.map((s, i) => (
+              <Reveal key={s.label} delay={i * 80}>
+                <div className="rounded-2xl border border-black/5 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                  <s.icon className="mx-auto text-brand-navy" size={22} />
+                  <div className="mt-2 text-xl font-extrabold text-brand-navy">
+                    <AnimatedCounter value={s.value} />
+                  </div>
+                  <div className="mt-0.5 text-xs text-brand-navy/60">
+                    {s.label}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
+      {/* Who We Are — text + visual */}
       <section className="py-14 sm:py-16 bg-brand-yellow-light/40">
-        <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading title="Who We Are" highlight="Technology Meets Outdoor Advertising" center={false} />
-          <p className="mt-5 text-brand-navy/80 leading-relaxed">
-            HappyFrU is not just an advertising company. We are a
-            technology-driven Digital Out-of-Home (DOOH) platform that
-            combines cloud computing, Android-powered media players,
-            intelligent campaign scheduling, real-time analytics, and
-            centralized content management to redefine how brands communicate
-            with consumers. Our ecosystem enables advertisers to launch
-            campaigns remotely while ensuring every display receives the
-            right content at the right time.
-          </p>
+        <div className="container-page grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <SectionHeading
+              eyebrow="Who We Are"
+              title="Technology Meets"
+              highlight="Outdoor Advertising"
+              center={false}
+            />
+            <Reveal delay={100}>
+              <p className="mt-5 text-brand-navy/80 leading-relaxed">
+                HappyFrU is not just an advertising company. We are a
+                technology-driven Digital Out-of-Home (DOOH) platform that
+                combines cloud computing, Android-powered media players,
+                intelligent campaign scheduling, real-time analytics, and
+                centralized content management to redefine how brands
+                communicate with consumers. Our ecosystem lets advertisers
+                launch campaigns remotely while ensuring every display receives
+                the right content at the right time.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={150}>
+            <div className="overflow-hidden rounded-2xl border border-black/5 shadow-lg">
+              <Image
+                src="/images/admin-dashboard.png"
+                alt="HappyFrU admin dashboard showing campaigns, devices, and analytics"
+                width={1536}
+                height={1024}
+                className="h-auto w-full"
+                sizes="(min-width: 1024px) 560px, 100vw"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
+      {/* Our Story — visual + text (alternated) */}
       <section className="py-14 sm:py-16">
-        <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading title="Our Story" highlight="Why We Started" center={false} />
-          <p className="mt-5 text-brand-navy/80 leading-relaxed">
-            Traditional outdoor advertising has remained largely unchanged
-            for decades. Billboards are expensive, difficult to measure, and
-            offer only a few seconds of visibility. Digital advertising
-            reaches millions online but often suffers from ad blockers,
-            skipped videos, and declining engagement. We saw an opportunity
-            to create a smarter advertising medium by utilizing the time
-            passengers naturally spend inside cabs. By installing connected
-            digital displays inside vehicles, we created a platform where
-            advertisements receive uninterrupted attention during every
-            journey.
-          </p>
+        <div className="container-page grid lg:grid-cols-2 gap-10 items-center">
+          <div className="lg:order-2">
+            <SectionHeading
+              eyebrow="Our Story"
+              title="Why We"
+              highlight="Started"
+              center={false}
+            />
+            <Reveal delay={100}>
+              <p className="mt-5 text-brand-navy/80 leading-relaxed">
+                Traditional outdoor advertising has stayed largely unchanged for
+                decades. Billboards are expensive, hard to measure, and offer
+                only a few seconds of visibility. Online advertising reaches
+                millions but suffers from ad blockers, skipped videos, and
+                declining engagement. We saw an opportunity in the time
+                passengers naturally spend inside cabs — so we installed
+                connected digital displays inside vehicles, creating a platform
+                where ads receive uninterrupted attention during every journey.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={150} className="lg:order-1">
+            <div className="relative overflow-hidden rounded-2xl border border-black/5 shadow-lg">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src="/images/screen-auto-rickshaw.jpeg"
+                  alt="HappyFrU display running an ad inside an auto-rickshaw"
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 560px, 100vw"
+                />
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="py-14 sm:py-16 bg-brand-yellow-light/40">
-        <div className="container-page grid sm:grid-cols-2 gap-10 max-w-4xl mx-auto">
-          <div>
-            <div className="flex items-center gap-2 text-brand-navy font-bold text-lg mb-3">
-              <EyeIcon size={20} className="text-brand-yellow-dark" />
-              Our Vision
-            </div>
-            <p className="text-brand-navy/80 leading-relaxed text-sm">
-              Making Every Journey a Brand Experience. We envision a future
-              where every commercial vehicle becomes a connected digital
-              communication channel. Our goal is to build India&apos;s
-              largest cloud-managed in-cab advertising network, enabling
-              businesses of every size to reach customers with measurable,
-              intelligent, and highly engaging campaigns.
-            </p>
-          </div>
-          <div>
-            <div className="flex items-center gap-2 text-brand-navy font-bold text-lg mb-3">
-              <TrendingUp size={20} className="text-brand-yellow-dark" />
-              Our Mission
-            </div>
-            <p className="text-brand-navy/80 leading-relaxed text-sm">
-              Our mission is to make digital outdoor advertising accessible,
-              affordable, and data-driven through innovative technology. We
-              strive to provide advertisers with complete transparency,
-              flexible campaign management, and meaningful customer
-              engagement while creating additional earning opportunities for
-              fleet operators.
-            </p>
+      {/* Vision & Mission — contrasting cards */}
+      <section className="py-16 sm:py-20 bg-brand-yellow-light/40">
+        <div className="container-page">
+          <SectionHeading eyebrow="Our Direction" title="Vision &" highlight="Mission" />
+          <div className="mt-10 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Reveal>
+              <div className="h-full rounded-2xl bg-brand-navy p-8 text-white shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-yellow text-brand-navy">
+                  <EyeIcon size={22} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold">Our Vision</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/75">
+                  Making every journey a brand experience. We envision a future
+                  where every commercial vehicle becomes a connected digital
+                  channel — building India&apos;s largest cloud-managed in-cab
+                  advertising network, so businesses of every size can reach
+                  customers with measurable, intelligent campaigns.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <div className="h-full rounded-2xl bg-brand-yellow p-8 text-brand-navy shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-brand-yellow">
+                  <TrendingUp size={22} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold">Our Mission</h3>
+                <p className="mt-2 text-sm leading-relaxed text-brand-navy/80">
+                  To make digital outdoor advertising accessible, affordable,
+                  and data-driven through innovative technology. We give
+                  advertisers complete transparency, flexible campaign
+                  management, and meaningful engagement — while creating new
+                  earning opportunities for fleet operators.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
+      {/* What Makes Us Different — icon cards */}
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Our Edge"
             title="What Makes Us"
             highlight="Different"
             subtitle="More than digital screens — a complete technology ecosystem."
           />
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              "Cloud-Based Content Management",
-              "Intelligent Campaign Scheduling",
-              "Android-Based Smart Displays",
-              "Real-Time Analytics",
-              "Smart Device Monitoring",
-              "Automatic Campaign Failover",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-xl border border-black/5 bg-white p-5 shadow-sm text-center"
-              >
-                <span className="text-sm font-semibold text-brand-navy">
-                  {item}
-                </span>
-              </div>
+            {DIFFERENTIATORS.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-brand-navy py-16 sm:py-20">
+      {/* Our Values — navy band */}
+      <WaveDivider top="bg-white" bottom="text-brand-navy" />
+      <section className="bg-brand-navy pt-4 pb-16 sm:pb-20">
         <div className="container-page">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center">
-            Our Values
-          </h2>
-          <div className="mt-2 h-1 w-16 rounded-full bg-brand-yellow mx-auto" />
+          <SectionHeading eyebrow="What Drives Us" title="Our Values" tone="onDark" />
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {VALUES.map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
-                  <item.icon size={22} />
+            {VALUES.map((item, i) => (
+              <Reveal key={item.title} delay={i * 80}>
+                <div className="group h-full rounded-2xl border border-white/10 bg-white/5 p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-white/10">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-brand-navy transition-transform duration-300 group-hover:scale-110">
+                    <item.icon size={22} />
+                  </div>
+                  <h3 className="mt-4 font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm text-white/70">{item.description}</p>
                 </div>
-                <h3 className="mt-4 font-bold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm text-white/70">
-                  {item.description}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
+      <WaveDivider top="bg-brand-navy" bottom="text-white" />
 
+      {/* Future Roadmap */}
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="What's Next"
             title="Future"
             highlight="Roadmap"
-            subtitle="We continue investing in advanced technologies that will shape the future of digital advertising."
+            subtitle="We keep investing in advanced technologies that will shape the future of digital advertising."
           />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {ROADMAP.map((item) => (
-              <div
+            {ROADMAP.map((item, i) => (
+              <Reveal
                 key={item}
-                className="flex items-center gap-2 rounded-lg bg-brand-yellow-light px-4 py-3"
+                delay={i * 60}
+                className="group flex items-center gap-2.5 rounded-xl bg-brand-yellow-light px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-yellow"
               >
-                <Sparkles size={16} className="text-brand-navy shrink-0" />
+                <Sparkles
+                  size={16}
+                  className="shrink-0 text-brand-yellow-dark transition-colors group-hover:text-brand-navy"
+                />
                 <span className="text-sm font-medium text-brand-navy">
                   {item}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Why We Exist — pull quote */}
       <section className="bg-brand-yellow-light/40 py-16 sm:py-20">
         <div className="container-page max-w-3xl mx-auto text-center">
-          <SectionHeading title="Why We Exist" />
-          <p className="mt-4 text-brand-navy/80">
-            We believe advertising should be
-          </p>
+          <Reveal>
+            <Quote className="mx-auto text-brand-yellow-dark" size={36} />
+            <p className="mt-4 text-lg font-semibold text-brand-navy">
+              We believe advertising should be
+            </p>
+          </Reveal>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {WHY_WE_EXIST.map((item) => (
-              <span
+            {WHY_WE_EXIST.map((item, i) => (
+              <Reveal
                 key={item}
-                className="rounded-full bg-white border border-brand-navy/10 px-4 py-2 text-sm font-semibold text-brand-navy"
+                delay={i * 70}
+                className="rounded-full border border-brand-navy/10 bg-white px-4 py-2 text-sm font-semibold text-brand-navy shadow-sm transition-transform duration-300 hover:-translate-y-0.5"
               >
                 {item}
-              </span>
+              </Reveal>
             ))}
           </div>
-          <p className="mt-6 text-brand-navy/70 text-sm">
-            Every display in our network represents an opportunity for brands
-            to connect with customers in a meaningful way.
-          </p>
+          <Reveal delay={200}>
+            <p className="mt-6 text-sm text-brand-navy/70">
+              Every display in our network represents an opportunity for brands
+              to connect with customers in a meaningful way.
+            </p>
+          </Reveal>
         </div>
       </section>
 

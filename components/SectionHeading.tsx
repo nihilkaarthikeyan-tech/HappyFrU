@@ -13,11 +13,26 @@ export default function SectionHeading({
   highlight?: string;
   subtitle?: string;
   center?: boolean;
-  tone?: "onLight" | "onYellow";
+  tone?: "onLight" | "onYellow" | "onDark";
 }) {
   const onYellow = tone === "onYellow";
-  const accent = onYellow ? "bg-brand-navy/50" : "bg-brand-yellow-dark";
-  const accentText = onYellow ? "text-brand-navy/70" : "text-brand-yellow-dark";
+  const onDark = tone === "onDark";
+
+  const accent = onYellow ? "bg-brand-navy/50" : onDark ? "bg-brand-yellow" : "bg-brand-yellow-dark";
+  const accentText = onYellow
+    ? "text-brand-navy/70"
+    : onDark
+      ? "text-brand-yellow"
+      : "text-brand-yellow-dark";
+  const titleColor = onDark ? "text-white" : "text-brand-navy";
+  const subtitleColor = onDark ? "text-white/70" : "text-brand-navy/70";
+  const markerColor = onYellow ? "bg-brand-navy" : onDark ? "bg-brand-yellow" : "bg-brand-yellow";
+
+  const highlightClass = onYellow
+    ? "text-brand-navy underline decoration-white decoration-4 underline-offset-4"
+    : onDark
+      ? "text-brand-yellow"
+      : "text-brand-yellow-dark";
 
   return (
     <Reveal className={center ? "text-center" : ""}>
@@ -36,33 +51,21 @@ export default function SectionHeading({
           {center && <span className={`h-px w-6 ${accent}`} />}
         </div>
       )}
-      <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand-navy">
+      <h2
+        className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${titleColor}`}
+      >
         {title}{" "}
-        {highlight && (
-          <span
-            className={
-              onYellow
-                ? "text-brand-navy underline decoration-white decoration-4 underline-offset-4"
-                : "text-brand-yellow-dark"
-            }
-          >
-            {highlight}
-          </span>
-        )}
+        {highlight && <span className={highlightClass}>{highlight}</span>}
       </h2>
       {!eyebrow && (
         <div
-          className={`mt-3 h-1 w-16 rounded-full ${
-            onYellow ? "bg-brand-navy" : "bg-brand-yellow"
-          } ${center ? "mx-auto" : ""}`}
+          className={`mt-3 h-1 w-16 rounded-full ${markerColor} ${
+            center ? "mx-auto" : ""
+          }`}
         />
       )}
       {subtitle && (
-        <p
-          className={`mt-4 text-brand-navy/70 max-w-2xl ${
-            center ? "mx-auto" : ""
-          }`}
-        >
+        <p className={`mt-4 max-w-2xl ${subtitleColor} ${center ? "mx-auto" : ""}`}>
           {subtitle}
         </p>
       )}
