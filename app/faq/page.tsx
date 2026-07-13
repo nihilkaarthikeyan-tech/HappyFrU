@@ -3,6 +3,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "FAQ | HappyFrU",
@@ -67,19 +68,19 @@ export default function FAQPage() {
 
       <section className="py-16 sm:py-20">
         <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading title="For Advertisers" center={false} />
-          <div className="mt-6">
+          <SectionHeading eyebrow="Advertisers" title="For Advertisers" center={false} />
+          <Reveal delay={120} className="mt-6">
             <FAQAccordion items={ADVERTISER_FAQS} />
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="pb-16 sm:pb-20">
         <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading title="For Fleet Partners" center={false} />
-          <div className="mt-6">
+          <SectionHeading eyebrow="Fleet Partners" title="For Fleet Partners" center={false} />
+          <Reveal delay={120} className="mt-6">
             <FAQAccordion items={FLEET_FAQS} />
-          </div>
+          </Reveal>
         </div>
       </section>
 

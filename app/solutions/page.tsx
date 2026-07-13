@@ -17,6 +17,8 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
+import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
   title: "Solutions | HappyFrU",
@@ -74,43 +76,48 @@ export default function SolutionsPage() {
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="The Platform"
             title="Platform"
             highlight="Capabilities"
             subtitle="Four core capabilities power every campaign on the network."
           />
           <div className="mt-10 grid sm:grid-cols-2 gap-5">
-            {CAPABILITIES.map((item) => (
-              <IconCard key={item.title} {...item} />
+            {CAPABILITIES.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-brand-yellow py-16 sm:py-20">
+      <WaveDivider top="bg-white" bottom="text-brand-yellow" />
+      <section className="bg-brand-yellow pt-4 pb-16 sm:pb-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Ad Formats"
             title="Ad Formats"
             highlight="We Support"
             subtitle="Choose the format that fits your campaign goal — mix and match across a single booking."
             tone="onYellow"
           />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {AD_FORMATS.map((item) => (
-              <div
+            {AD_FORMATS.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="flex flex-col items-center text-center gap-2"
+                delay={i * 70}
+                className="group flex flex-col items-center text-center gap-2"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-brand-navy">
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-brand-navy transition-all duration-300 group-hover:scale-110 group-hover:shadow-md">
                   <item.icon size={24} />
                 </div>
                 <span className="text-sm font-medium text-brand-navy/80">
                   {item.label}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
+      <WaveDivider top="bg-brand-yellow" bottom="text-white" />
 
       <CTABand
         heading="See the platform in action"

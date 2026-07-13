@@ -5,6 +5,8 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
+import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
   title: "Analytics | HappyFrU",
@@ -50,25 +52,27 @@ export default function AnalyticsPage() {
 
       <section className="py-16 sm:py-20">
         <div className="container-page">
-          <SectionHeading title="What You Can Track" />
+          <SectionHeading eyebrow="Reporting" title="What You Can Track" />
           <div className="mt-10 grid sm:grid-cols-2 gap-5">
-            {METRICS.map((item) => (
-              <IconCard key={item.title} {...item} />
+            {METRICS.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-brand-yellow py-16 sm:py-20">
+      <WaveDivider top="bg-white" bottom="text-brand-yellow" />
+      <section className="bg-brand-yellow pt-4 pb-16 sm:pb-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Dashboard Preview"
             title="Dashboard"
             highlight="Preview"
             subtitle="A look at the campaign reporting view inside the advertiser portal — design mockup, figures shown are illustrative."
             tone="onYellow"
           />
 
-          <div className="mt-10 max-w-4xl mx-auto">
+          <Reveal delay={120} className="mt-10 max-w-4xl mx-auto">
             <Image
               src="/images/admin-dashboard.png"
               alt="HappyFrU advertiser portal dashboard showing campaign performance, spend, impressions, and screen health"
@@ -77,9 +81,10 @@ export default function AnalyticsPage() {
               className="w-full h-auto rounded-2xl shadow-lg"
               sizes="(min-width: 1024px) 896px, 100vw"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
+      <WaveDivider top="bg-brand-yellow" bottom="text-white" />
 
       <CTABand
         heading="See real reporting on your campaign"

@@ -12,6 +12,7 @@ import {
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Industries | HappyFrU",
@@ -41,20 +42,25 @@ export default function IndustriesPage() {
 
       <section className="py-16 sm:py-20">
         <div className="container-page">
-          <SectionHeading title="Where Our Network Reaches" />
+          <SectionHeading
+            eyebrow="Coverage"
+            title="Where Our Network Reaches"
+            subtitle="Because our screens move with the vehicle, your campaign travels across the whole city — not a single fixed spot."
+          />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-5">
-            {INDUSTRIES.map((item) => (
-              <div
+            {INDUSTRIES.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="flex flex-col items-center text-center gap-3 rounded-xl border border-black/5 bg-white p-6 shadow-sm"
+                delay={i * 70}
+                className="group flex flex-col items-center text-center gap-3 rounded-xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-yellow text-brand-navy">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-yellow text-brand-navy transition-transform duration-300 group-hover:scale-110">
                   <item.icon size={24} />
                 </div>
                 <span className="text-sm font-semibold text-brand-navy">
                   {item.label}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

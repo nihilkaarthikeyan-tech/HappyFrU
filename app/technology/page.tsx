@@ -16,6 +16,8 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
+import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
   title: "Technology | HappyFrU",
@@ -81,25 +83,35 @@ export default function TechnologyPage() {
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
-            title="Under the"
-            highlight="Hood"
+            eyebrow="Under the Hood"
+            title="Built to Keep"
+            highlight="Running"
           />
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TECH_CAPABILITIES.map((item) => (
-              <IconCard key={item.title} {...item} />
+            {TECH_CAPABILITIES.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-brand-navy py-16 sm:py-20">
+      <WaveDivider top="bg-white" bottom="text-brand-navy" />
+      <section className="bg-brand-navy pt-4 pb-16 sm:pb-20">
         <div className="container-page">
-          <SectionHeading title="How Content Reaches a Screen" />
+          <SectionHeading
+            eyebrow="The Architecture"
+            title="How Content Reaches a Screen"
+            tone="onDark"
+          />
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
             {ARCHITECTURE_STEPS.map((step, i) => (
-              <div key={step.label} className="flex items-center gap-4">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
+              <Reveal
+                key={step.label}
+                delay={i * 140}
+                className="flex items-center gap-4"
+              >
+                <div className="group flex flex-col items-center gap-2">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-yellow text-brand-navy transition-transform duration-300 group-hover:scale-110">
                     <step.icon size={26} />
                   </div>
                   <span className="text-sm font-semibold text-white">
@@ -112,16 +124,19 @@ export default function TechnologyPage() {
                     size={22}
                   />
                 )}
-              </div>
+              </Reveal>
             ))}
           </div>
-          <p className="mt-8 text-center text-white/60 text-sm max-w-xl mx-auto">
-            Content is scheduled in the cloud, pushed to the Android player on
-            each display, and every playback event feeds back into real-time
-            analytics — a closed loop from upload to reporting.
-          </p>
+          <Reveal delay={200}>
+            <p className="mt-8 text-center text-white/60 text-sm max-w-xl mx-auto">
+              Content is scheduled in the cloud, pushed to the Android player on
+              each display, and every playback event feeds back into real-time
+              analytics — a closed loop from upload to reporting.
+            </p>
+          </Reveal>
         </div>
       </section>
+      <WaveDivider top="bg-brand-navy" bottom="text-white" />
 
       <CTABand
         heading="Talk to us about the platform"

@@ -22,6 +22,8 @@ import {
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
+import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
   title: "For Advertisers | HappyFrU",
@@ -64,20 +66,25 @@ export default function AdvertisersPage() {
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Advertiser Portal"
             title="What You Can Do"
-            highlight="in the Advertiser Portal"
+            highlight="in the Portal"
           />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-5">
-            {CAN_DO.map((item) => (
-              <div
+            {CAN_DO.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="rounded-xl border border-black/5 bg-white p-5 text-center shadow-sm"
+                delay={i * 70}
+                className="group rounded-xl border border-black/5 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <item.icon className="mx-auto text-brand-navy" size={26} />
+                <item.icon
+                  className="mx-auto text-brand-navy transition-transform duration-300 group-hover:scale-110"
+                  size={26}
+                />
                 <p className="mt-3 text-sm font-semibold text-brand-navy">
                   {item.label}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -86,11 +93,12 @@ export default function AdvertisersPage() {
       <section className="py-4 sm:py-6">
         <div className="container-page">
           <SectionHeading
+            eyebrow="In One Place"
             title="Your Campaigns,"
             highlight="In One Dashboard"
             subtitle="Monitor spend, impressions, CTR, and screen health across every campaign — in real time."
           />
-          <div className="mt-10 max-w-4xl mx-auto">
+          <Reveal delay={120} className="mt-10 max-w-4xl mx-auto">
             <Image
               src="/images/admin-dashboard.png"
               alt="HappyFrU advertiser portal showing live campaigns, performance trends, and screen health"
@@ -99,28 +107,38 @@ export default function AdvertisersPage() {
               className="w-full h-auto rounded-2xl shadow-lg"
               sizes="(min-width: 1024px) 896px, 100vw"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="bg-brand-yellow py-16 sm:py-20">
+      <WaveDivider top="bg-white" bottom="text-brand-yellow" />
+      <section className="bg-brand-yellow pt-4 pb-16 sm:pb-20">
         <div className="container-page">
-          <SectionHeading title="Why Brands Choose HappyFrU" />
+          <SectionHeading
+            eyebrow="Why Us"
+            title="Why Brands Choose HappyFrU"
+            tone="onYellow"
+          />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {BENEFITS.map((item) => (
-              <div
+            {BENEFITS.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="flex flex-col items-center text-center gap-2 rounded-xl bg-white/70 p-4"
+                delay={i * 60}
+                className="group flex flex-col items-center text-center gap-2 rounded-xl bg-white/70 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
               >
-                <item.icon className="text-brand-navy" size={22} />
+                <item.icon
+                  className="text-brand-navy transition-transform duration-300 group-hover:scale-110"
+                  size={22}
+                />
                 <span className="text-xs font-semibold text-brand-navy leading-tight">
                   {item.label}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
+      <WaveDivider top="bg-brand-yellow" bottom="text-white" />
 
       <CTABand
         heading="Start Your Campaign"

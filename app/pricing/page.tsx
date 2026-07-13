@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Pricing | HappyFrU",
@@ -50,21 +51,27 @@ export default function PricingPage() {
       <section className="py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="How Pricing Works"
             title="What Determines"
             highlight="Your Price"
           />
           <div className="mt-10 grid sm:grid-cols-2 gap-5">
-            {FACTORS.map((item) => (
-              <IconCard key={item.title} {...item} />
+            {FACTORS.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
 
-          <div className="mt-10 rounded-xl border border-brand-yellow-dark/40 bg-brand-yellow-light px-6 py-5 text-sm text-brand-navy/80 max-w-3xl">
-            We quote every campaign individually so pricing reflects your
-            exact reach and duration, rather than a one-size-fits-all rate
-            card. Share your goals below and we&apos;ll respond with a
-            tailored proposal.
-          </div>
+          <Reveal delay={120} className="mt-10 flex items-start gap-4 rounded-2xl border border-brand-yellow-dark/40 bg-brand-yellow-light px-6 py-5 max-w-3xl">
+            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-navy text-white">
+              <Layers size={18} />
+            </div>
+            <p className="text-sm text-brand-navy/80 leading-relaxed">
+              We quote every campaign individually so pricing reflects your
+              exact reach and duration, rather than a one-size-fits-all rate
+              card. Share your goals below and we&apos;ll respond with a
+              tailored proposal.
+            </p>
+          </Reveal>
         </div>
       </section>
 
