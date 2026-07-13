@@ -49,6 +49,7 @@ import BrandMarquee from "@/components/BrandMarquee";
 import HowItWorksTimeline from "@/components/HowItWorksTimeline";
 import WaveDivider from "@/components/WaveDivider";
 import LiveTicker from "@/components/LiveTicker";
+import SectionNav from "@/components/SectionNav";
 import { WHATSAPP_LINK } from "@/lib/nav";
 
 const HERO_STATS = [
@@ -164,6 +165,8 @@ const WHO_WE_SERVE = [
 export default function Home() {
   return (
     <>
+      <SectionNav />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-yellow">
         <GradientBlobs />
@@ -253,9 +256,10 @@ export default function Home() {
       <ScreensGallery />
 
       {/* Platform snapshot */}
-      <section className="py-16 sm:py-20">
+      <section id="platform" className="scroll-mt-24 py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="The Platform"
             title="One Website,"
             highlight="Five Integrated Systems"
             subtitle="HappyFrU isn't just a website — it's a full ecosystem working together behind every campaign."
@@ -281,9 +285,10 @@ export default function Home() {
       </section>
 
       {/* Why brands choose us */}
-      <section className="py-16 sm:py-20">
+      <section id="why-us" className="scroll-mt-24 py-16 sm:py-20">
         <div className="container-page">
           <SectionHeading
+            eyebrow="Why HappyFrU"
             title="Why Brands Choose"
             highlight="HappyFrU"
           />
@@ -297,18 +302,18 @@ export default function Home() {
 
       {/* How it works */}
       <WaveDivider top="bg-white" bottom="text-brand-yellow" />
-      <section className="bg-brand-yellow pt-4 pb-16 sm:pb-20">
+      <section id="how-it-works" className="scroll-mt-24 bg-brand-yellow pt-4 pb-16 sm:pb-20">
         <div className="container-page">
-          <SectionHeading title="How It Works" />
+          <SectionHeading eyebrow="The Process" title="How It Works" tone="onYellow" />
           <HowItWorksTimeline />
         </div>
       </section>
       <WaveDivider top="bg-brand-yellow" bottom="text-white" />
 
       {/* Advertising solutions */}
-      <section className="py-16 sm:py-20">
+      <section id="solutions" className="scroll-mt-24 py-16 sm:py-20">
         <div className="container-page">
-          <SectionHeading title="Our Advertising Solutions" />
+          <SectionHeading eyebrow="Ad Formats" title="Our Advertising Solutions" />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {AD_SOLUTIONS.map((item, i) => (
               <Reveal
@@ -359,7 +364,7 @@ export default function Home() {
 
       {/* Network stats */}
       <WaveDivider top="bg-white" bottom="text-brand-navy" />
-      <section className="bg-brand-navy pt-4 pb-14">
+      <section id="network" className="scroll-mt-24 bg-brand-navy pt-4 pb-14">
         <div className="container-page">
           <LiveTicker />
           <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -372,9 +377,9 @@ export default function Home() {
       <WaveDivider top="bg-brand-navy" bottom="text-white" />
 
       {/* Who we serve */}
-      <section className="py-16 sm:py-20">
+      <section id="industries" className="scroll-mt-24 py-16 sm:py-20">
         <div className="container-page">
-          <SectionHeading title="Who We Serve" />
+          <SectionHeading eyebrow="Industries" title="Who We Serve" />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
             {WHO_WE_SERVE.map((item, i) => (
               <Reveal

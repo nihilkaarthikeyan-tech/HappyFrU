@@ -98,6 +98,7 @@ export default function ScreensGallery() {
     <section className="py-16 sm:py-20">
       <div className="container-page">
         <SectionHeading
+          eyebrow="Live Proof"
           title="Real Screens,"
           highlight="Real Rides"
           subtitle="Not a mockup — this is exactly what passengers see, every ride, every day. Tap a photo to zoom in."
