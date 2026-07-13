@@ -28,10 +28,10 @@ export default function Navbar() {
 
         <div className="hidden lg:block">
           <Link
-            href="/login"
+            href="/contact"
             className="inline-flex items-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors"
           >
-            Login / Sign Up
+            Start a Campaign
           </Link>
         </div>
 
@@ -59,11 +59,11 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="/login"
+              href="/contact"
               className="mt-2 inline-flex items-center justify-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              Login / Sign Up
+              Start a Campaign
             </Link>
           </nav>
         </div>
