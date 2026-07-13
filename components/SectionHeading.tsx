@@ -1,3 +1,5 @@
+import Reveal from "./Reveal";
+
 export default function SectionHeading({
   title,
   highlight,
@@ -14,7 +16,7 @@ export default function SectionHeading({
   const onYellow = tone === "onYellow";
 
   return (
-    <div className={center ? "text-center" : ""}>
+    <Reveal className={center ? "text-center" : ""}>
       <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy">
         {title}{" "}
         {highlight && (
@@ -37,6 +39,6 @@ export default function SectionHeading({
           {subtitle}
         </p>
       )}
-    </div>
+    </Reveal>
   );
 }

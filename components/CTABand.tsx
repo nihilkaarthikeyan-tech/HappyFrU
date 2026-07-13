@@ -1,6 +1,7 @@
 import { MessageCircle, Phone, QrCode } from "lucide-react";
 import { CONTACT_PHONE, WHATSAPP_LINK } from "@/lib/nav";
 import TrackedLink from "./TrackedLink";
+import Reveal from "./Reveal";
 
 export default function CTABand({
   heading = "Ready to Grow Your Brand?",
@@ -16,7 +17,7 @@ export default function CTABand({
   return (
     <section className="bg-brand-yellow">
       <div className="container-page py-10">
-        <div className="rounded-2xl bg-brand-navy px-6 py-8 sm:px-10 sm:py-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <Reveal className="rounded-2xl bg-brand-navy px-6 py-8 sm:px-10 sm:py-10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
               {heading}
@@ -29,7 +30,7 @@ export default function CTABand({
               href={primaryHref}
               event="cta_click"
               location="cta_band_primary"
-              className="inline-flex items-center justify-center rounded-full bg-brand-yellow px-6 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-yellow-dark transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center rounded-full bg-brand-yellow px-6 py-3 text-sm font-semibold text-brand-navy transition-all duration-300 hover:bg-brand-yellow-dark hover:scale-105 whitespace-nowrap"
             >
               {primaryLabel}
             </TrackedLink>
@@ -38,7 +39,7 @@ export default function CTABand({
               event="whatsapp_click"
               location="cta_band"
               newTab
-              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:scale-105 whitespace-nowrap"
             >
               <MessageCircle size={16} />
               Chat on WhatsApp
@@ -47,7 +48,7 @@ export default function CTABand({
               href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
               event="phone_click"
               location="cta_band"
-              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:scale-105 whitespace-nowrap"
             >
               <Phone size={16} />
               {CONTACT_PHONE}
@@ -60,7 +61,7 @@ export default function CTABand({
             </div>
             Scan to Connect
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

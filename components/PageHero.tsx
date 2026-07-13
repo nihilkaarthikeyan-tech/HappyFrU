@@ -9,7 +9,7 @@ export default function PageHero({
 }) {
   return (
     <section className="bg-brand-navy">
-      <div className="container-page py-16 sm:py-20 text-center">
+      <div className="container-page py-16 sm:py-20 text-center animate-fade-in-up">
         {eyebrow && (
           <p className="text-brand-yellow font-semibold text-sm tracking-wide uppercase mb-3">
             {eyebrow}

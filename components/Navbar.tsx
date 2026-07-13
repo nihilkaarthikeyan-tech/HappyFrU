@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { track } from "@vercel/analytics";
@@ -9,10 +9,26 @@ import { PRIMARY_NAV_LINKS } from "@/lib/nav";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-black/5">
-      <div className="container-page flex items-center justify-between py-3">
+    <header
+      className={`sticky top-0 z-50 bg-white/95 backdrop-blur border-b transition-shadow duration-300 ${
+        scrolled ? "border-black/5 shadow-md" : "border-transparent"
+      }`}
+    >
+      <div
+        className={`container-page flex items-center justify-between transition-[padding] duration-300 ${
+          scrolled ? "py-2" : "py-3"
+        }`}
+      >
         <Logo />
 
         <nav className="hidden lg:flex items-center gap-6">

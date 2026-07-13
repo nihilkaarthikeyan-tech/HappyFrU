@@ -45,6 +45,9 @@ import SectionHeading from "@/components/SectionHeading";
 import StatBadge from "@/components/StatBadge";
 import CTABand from "@/components/CTABand";
 import TrackedLink from "@/components/TrackedLink";
+import Reveal from "@/components/Reveal";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import ScreensGallery from "@/components/ScreensGallery";
 import { WHATSAPP_LINK } from "@/lib/nav";
 
 const HERO_STATS = [
@@ -173,7 +176,7 @@ export default function Home() {
       {/* Hero */}
       <section className="bg-brand-yellow">
         <div className="container-page pt-10 pb-8 sm:pt-16 sm:pb-12 grid lg:grid-cols-2 gap-10 items-center">
-          <div>
+          <div className="animate-fade-in-up">
             <h1 className="text-3xl sm:text-5xl font-extrabold text-brand-navy leading-tight">
               India&apos;s Smart
               <br />
@@ -187,14 +190,15 @@ export default function Home() {
             </p>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
-              {HERO_STATS.map((stat) => (
+              {HERO_STATS.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl bg-white/70 px-3 py-4 text-center"
+                  className="rounded-xl bg-white/70 px-3 py-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-md animate-fade-in-up"
+                  style={{ animationDelay: `${150 + i * 100}ms` }}
                 >
                   <stat.icon className="mx-auto text-brand-navy" size={22} />
                   <div className="mt-2 text-lg font-extrabold text-brand-navy">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} />
                   </div>
                   <div className="text-[11px] leading-tight text-brand-navy/70 whitespace-pre-line">
                     {stat.label}
@@ -208,7 +212,7 @@ export default function Home() {
                 href="/contact"
                 event="cta_click"
                 location="home_hero_start_campaign"
-                className="inline-flex items-center justify-center rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors"
+                className="inline-flex items-center justify-center rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-navy-light hover:scale-105"
               >
                 Start Your Campaign
               </TrackedLink>
@@ -216,7 +220,7 @@ export default function Home() {
                 href="/fleet-partners"
                 event="cta_click"
                 location="home_hero_fleet_partner"
-                className="inline-flex items-center justify-center rounded-full border-2 border-brand-navy px-6 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-white transition-colors"
+                className="inline-flex items-center justify-center rounded-full border-2 border-brand-navy px-6 py-3 text-sm font-semibold text-brand-navy transition-all duration-300 hover:bg-brand-navy hover:text-white hover:scale-105"
               >
                 Become a Fleet Partner
               </TrackedLink>
@@ -233,7 +237,9 @@ export default function Home() {
             </div>
           </div>
 
-          <HeroIllustration />
+          <div className="animate-fade-in-up [animation-delay:200ms]">
+            <HeroIllustration />
+          </div>
         </div>
 
         <div className="container-page pb-8">
@@ -248,6 +254,8 @@ export default function Home() {
         </div>
       </section>
 
+      <ScreensGallery />
+
       {/* Platform snapshot */}
       <section className="py-16 sm:py-20">
         <div className="container-page">
@@ -257,21 +265,20 @@ export default function Home() {
             subtitle="HappyFrU isn't just a website — it's a full ecosystem working together behind every campaign."
           />
           <div className="mt-10 grid grid-cols-2 lg:grid-cols-5 gap-5">
-            {PLATFORM_COMPONENTS.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl border border-black/5 bg-white p-5 text-center shadow-sm"
-              >
-                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-brand-yellow-light text-brand-navy">
-                  <item.icon size={22} />
+            {PLATFORM_COMPONENTS.map((item, i) => (
+              <Reveal key={item.title} delay={i * 80}>
+                <div className="group rounded-xl border border-black/5 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-brand-yellow-light text-brand-navy transition-transform duration-300 group-hover:scale-110">
+                    <item.icon size={22} />
+                  </div>
+                  <h3 className="mt-3 text-sm font-bold text-brand-navy">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs text-brand-navy/60 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="mt-3 text-sm font-bold text-brand-navy">
-                  {item.title}
-                </h3>
-                <p className="mt-1.5 text-xs text-brand-navy/60 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -285,8 +292,8 @@ export default function Home() {
             highlight="HappyFrU"
           />
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {WHY_CHOOSE.map((item) => (
-              <IconCard key={item.title} {...item} />
+            {WHY_CHOOSE.map((item, i) => (
+              <IconCard key={item.title} {...item} delay={i * 80} />
             ))}
           </div>
         </div>
@@ -298,9 +305,9 @@ export default function Home() {
           <SectionHeading title="How It Works" />
           <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6">
             {HOW_IT_WORKS.map((step, i) => (
-              <div key={step.label} className="flex flex-col items-center text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-navy shadow-sm">
-                  <step.icon size={26} />
+              <Reveal key={step.label} delay={i * 80} className="flex flex-col items-center text-center">
+                <div className="group flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-navy shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md">
+                  <step.icon size={26} className="transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div className="mt-3 text-xs font-bold text-brand-navy/60">
                   Step {i + 1}
@@ -308,7 +315,7 @@ export default function Home() {
                 <div className="mt-1 text-sm font-semibold text-brand-navy max-w-[9rem]">
                   {step.label}
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -319,18 +326,19 @@ export default function Home() {
         <div className="container-page">
           <SectionHeading title="Our Advertising Solutions" />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {AD_SOLUTIONS.map((item) => (
-              <div
+            {AD_SOLUTIONS.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="flex flex-col items-center text-center gap-2"
+                delay={i * 70}
+                className="group flex flex-col items-center text-center gap-2"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand-yellow-light text-brand-navy">
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand-yellow-light text-brand-navy transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-yellow">
                   <item.icon size={24} />
                 </div>
                 <span className="text-sm font-medium text-brand-navy/80">
                   {item.label}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -369,8 +377,8 @@ export default function Home() {
       <section className="bg-brand-navy py-14">
         <div className="container-page">
           <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {NETWORK_STATS.map((stat) => (
-              <StatBadge key={stat.label} {...stat} variant="dark" />
+            {NETWORK_STATS.map((stat, i) => (
+              <StatBadge key={stat.label} {...stat} variant="dark" delay={i * 80} />
             ))}
           </div>
         </div>
@@ -381,16 +389,17 @@ export default function Home() {
         <div className="container-page">
           <SectionHeading title="Who We Serve" />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
-            {WHO_WE_SERVE.map((item) => (
-              <div
+            {WHO_WE_SERVE.map((item, i) => (
+              <Reveal
                 key={item.label}
-                className="flex items-center gap-3 rounded-xl border-2 border-brand-yellow px-4 py-3"
+                delay={i * 60}
+                className="flex items-center gap-3 rounded-xl border-2 border-brand-yellow px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-yellow-light hover:shadow-md"
               >
                 <item.icon className="text-brand-navy" size={22} />
                 <span className="text-sm font-semibold text-brand-navy">
                   {item.label}
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

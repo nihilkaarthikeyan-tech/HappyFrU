@@ -16,7 +16,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
           <div key={item.question}>
             <button
               type="button"
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-brand-yellow-light/40"
               onClick={() => setOpenIndex(isOpen ? null : i)}
               aria-expanded={isOpen}
             >
@@ -25,16 +25,21 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
               </span>
               <ChevronDown
                 size={18}
-                className={`shrink-0 text-brand-navy/60 transition-transform ${
+                className={`shrink-0 text-brand-navy/60 transition-transform duration-300 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />
             </button>
-            {isOpen && (
-              <div className="px-5 pb-4 text-sm text-brand-navy/70 leading-relaxed">
-                {item.answer}
+            <div
+              className="grid transition-[grid-template-rows] duration-300 ease-out"
+              style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+            >
+              <div className="overflow-hidden">
+                <div className="px-5 pb-4 text-sm text-brand-navy/70 leading-relaxed">
+                  {item.answer}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}
