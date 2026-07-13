@@ -5,11 +5,12 @@ import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
 import Reveal from "@/components/Reveal";
+import InvestmentCalculator from "@/components/InvestmentCalculator";
 
 export const metadata: Metadata = {
   title: "Pricing | HappyFrU",
   description:
-    "HappyFrU campaign pricing is based on screen count, city coverage, and campaign duration. Request a custom quote for your advertising goals.",
+    "Estimate your HappyFrU in-cab advertising campaign cost instantly with our investment calculator, or request a custom quote for your advertising goals.",
 };
 
 const FACTORS = [
@@ -49,6 +50,20 @@ export default function PricingPage() {
       />
 
       <section className="py-16 sm:py-20">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="Investment Calculator"
+            title="Estimate Your"
+            highlight="Campaign Cost"
+            subtitle="Get instant pricing estimates for in-cab advertising and explore captive audience marketing potential."
+          />
+          <Reveal delay={100} className="mt-10">
+            <InvestmentCalculator />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="pb-16 sm:pb-20">
         <div className="container-page">
           <SectionHeading
             eyebrow="How Pricing Works"
