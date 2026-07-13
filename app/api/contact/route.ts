@@ -1,0 +1,32 @@
+import { NextResponse } from "next/server";
+
+export async function POST(request: Request) {
+  const body = await request.json().catch(() => null);
+
+  if (
+    !body ||
+    typeof body.name !== "string" ||
+    typeof body.email !== "string" ||
+    typeof body.message !== "string" ||
+    !body.name.trim() ||
+    !body.email.trim() ||
+    !body.message.trim()
+  ) {
+    return NextResponse.json(
+      { error: "Name, email, and message are required." },
+      { status: 400 }
+    );
+  }
+
+  // TODO: wire this up to a CRM or notification email once that decision is made (see PRD section 7).
+  console.log("New HappyFrU lead:", {
+    inquiryType: body.inquiryType ?? "general",
+    name: body.name,
+    email: body.email,
+    phone: body.phone ?? "",
+    message: body.message,
+    receivedAt: new Date().toISOString(),
+  });
+
+  return NextResponse.json({ ok: true });
+}
