@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { track } from "@vercel/analytics";
 import Logo from "./Logo";
 import { PRIMARY_NAV_LINKS } from "@/lib/nav";
 
@@ -29,6 +30,7 @@ export default function Navbar() {
         <div className="hidden lg:block">
           <Link
             href="/contact"
+            onClick={() => track("cta_click", { location: "navbar" })}
             className="inline-flex items-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors"
           >
             Start a Campaign
@@ -61,7 +63,10 @@ export default function Navbar() {
             <Link
               href="/contact"
               className="mt-2 inline-flex items-center justify-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                track("cta_click", { location: "navbar_mobile" });
+                setOpen(false);
+              }}
             >
               Start a Campaign
             </Link>

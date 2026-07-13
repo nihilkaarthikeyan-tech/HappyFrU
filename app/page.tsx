@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Zap,
   MessageCircle,
@@ -33,12 +32,19 @@ import {
   Clapperboard,
   ShoppingBag,
   Plane,
+  Globe,
+  LayoutDashboard,
+  Gauge,
+  Smartphone,
+  MonitorSmartphone,
+  ArrowRight,
 } from "lucide-react";
 import HeroIllustration from "@/components/HeroIllustration";
 import IconCard from "@/components/IconCard";
 import SectionHeading from "@/components/SectionHeading";
 import StatBadge from "@/components/StatBadge";
 import CTABand from "@/components/CTABand";
+import TrackedLink from "@/components/TrackedLink";
 import { WHATSAPP_LINK } from "@/lib/nav";
 
 const HERO_STATS = [
@@ -46,6 +52,38 @@ const HERO_STATS = [
   { icon: Clock, value: "15–25", label: "Minutes\nAvg. Viewing Time" },
   { icon: Users, value: "50+", label: "Planned\nDigital Screens" },
   { icon: BarChart3, value: "95%", label: "Ad Completion\nRate" },
+];
+
+const PLATFORM_COMPONENTS = [
+  {
+    icon: Globe,
+    title: "Corporate Website",
+    description:
+      "Introduces our services, generates leads, and enables advertisers to start campaigns.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "Advertiser Portal",
+    description:
+      "Create campaigns, upload ads, book screens, and track performance.",
+  },
+  {
+    icon: Gauge,
+    title: "Admin Dashboard",
+    description:
+      "Monitor campaigns, devices, fleet, payments, and analytics.",
+  },
+  {
+    icon: Smartphone,
+    title: "Driver App",
+    description:
+      "Vehicle registration, maintenance requests, and daily earnings.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Android Display Player",
+    description: "Offline playback, scheduling, and heartbeat monitoring.",
+  },
 ];
 
 const WHY_CHOOSE = [
@@ -165,22 +203,33 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <TrackedLink
                 href="/contact"
+                event="cta_click"
+                location="home_hero_start_campaign"
                 className="inline-flex items-center justify-center rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors"
               >
                 Start Your Campaign
-              </Link>
-              <a
+              </TrackedLink>
+              <TrackedLink
+                href="/fleet-partners"
+                event="cta_click"
+                location="home_hero_fleet_partner"
+                className="inline-flex items-center justify-center rounded-full border-2 border-brand-navy px-6 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-white transition-colors"
+              >
+                Become a Fleet Partner
+              </TrackedLink>
+              <TrackedLink
                 href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 justify-center rounded-full border-2 border-brand-navy px-6 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-white transition-colors"
+                event="whatsapp_click"
+                location="home_hero"
+                newTab
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-navy hover:underline"
               >
                 <MessageCircle size={16} />
                 Chat on WhatsApp
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
@@ -195,6 +244,35 @@ export default function Home() {
             </span>
             <span className="hidden sm:inline text-brand-navy/40">|</span>
             <span>Trusted by 200+ brands & growing</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Platform snapshot */}
+      <section className="py-16 sm:py-20">
+        <div className="container-page">
+          <SectionHeading
+            title="One Website,"
+            highlight="Five Integrated Systems"
+            subtitle="HappyFrU isn't just a website — it's a full ecosystem working together behind every campaign."
+          />
+          <div className="mt-10 grid grid-cols-2 lg:grid-cols-5 gap-5">
+            {PLATFORM_COMPONENTS.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-xl border border-black/5 bg-white p-5 text-center shadow-sm"
+              >
+                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-brand-yellow-light text-brand-navy">
+                  <item.icon size={22} />
+                </div>
+                <h3 className="mt-3 text-sm font-bold text-brand-navy">
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 text-xs text-brand-navy/60 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -254,6 +332,35 @@ export default function Home() {
                 </span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Secondary CTA: explore before committing */}
+      <section className="pb-16 sm:pb-20 -mt-6 sm:-mt-8">
+        <div className="container-page">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center border-t border-black/5 pt-8">
+            <span className="text-sm text-brand-navy/60">
+              Want more detail before you commit?
+            </span>
+            <div className="flex items-center gap-6">
+              <TrackedLink
+                href="/technology"
+                event="secondary_nav_click"
+                location="home_technology"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-brand-navy hover:gap-2 transition-all"
+              >
+                See the Technology <ArrowRight size={14} />
+              </TrackedLink>
+              <TrackedLink
+                href="/pricing"
+                event="secondary_nav_click"
+                location="home_pricing"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-brand-navy hover:gap-2 transition-all"
+              >
+                View Pricing <ArrowRight size={14} />
+              </TrackedLink>
+            </div>
           </div>
         </div>
       </section>
