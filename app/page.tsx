@@ -53,7 +53,7 @@ import SectionNav from "@/components/SectionNav";
 import { CONTACTS } from "@/lib/nav";
 
 const HERO_STATS = [
-  { icon: Monitor, value: "720+", label: "Daily Views\nPer Screen" },
+  { icon: Monitor, value: "720+", label: "Monthly Views\nPer Screen" },
   { icon: Clock, value: "15–25", label: "Minutes\nAvg. Viewing Time" },
   { icon: Users, value: "50+", label: "Planned\nDigital Screens" },
   { icon: BarChart3, value: "95%", label: "Ad Completion\nRate" },
