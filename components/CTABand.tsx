@@ -1,5 +1,5 @@
-import { MessageCircle, Phone, QrCode } from "lucide-react";
-import { CONTACT_PHONE, WHATSAPP_LINK } from "@/lib/nav";
+import { MessageCircle, QrCode } from "lucide-react";
+import { CONTACTS } from "@/lib/nav";
 import TrackedLink from "./TrackedLink";
 import Reveal from "./Reveal";
 
@@ -34,25 +34,31 @@ export default function CTABand({
             >
               {primaryLabel}
             </TrackedLink>
-            <TrackedLink
-              href={WHATSAPP_LINK}
-              event="whatsapp_click"
-              location="cta_band"
-              newTab
-              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:scale-105 whitespace-nowrap"
-            >
-              <MessageCircle size={16} />
-              Chat on WhatsApp
-            </TrackedLink>
-            <TrackedLink
-              href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
-              event="phone_click"
-              location="cta_band"
-              className="inline-flex items-center gap-2 justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:scale-105 whitespace-nowrap"
-            >
-              <Phone size={16} />
-              {CONTACT_PHONE}
-            </TrackedLink>
+            {CONTACTS.map((c) => (
+              <div
+                key={c.name}
+                className="inline-flex items-center gap-1 rounded-full border border-white/40 pl-4 pr-1.5 py-1.5 text-sm font-semibold text-white"
+              >
+                <TrackedLink
+                  href={`tel:${c.phone.replace(/\s/g, "")}`}
+                  event="phone_click"
+                  location="cta_band"
+                  className="whitespace-nowrap transition-colors duration-300 hover:text-brand-yellow"
+                >
+                  {c.name} · {c.phone}
+                </TrackedLink>
+                <TrackedLink
+                  href={`https://wa.me/${c.whatsappNumber}`}
+                  event="whatsapp_click"
+                  location="cta_band"
+                  newTab
+                  aria-label={`Chat with ${c.name} on WhatsApp`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 hover:bg-white/10 hover:scale-105"
+                >
+                  <MessageCircle size={15} />
+                </TrackedLink>
+              </div>
+            ))}
           </div>
 
           <div className="hidden xl:flex flex-col items-center gap-1 text-white/80 text-xs shrink-0">

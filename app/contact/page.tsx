@@ -9,7 +9,7 @@ import {
   LinkedinIcon,
   YoutubeIcon,
 } from "@/components/SocialIcons";
-import { CONTACT_PHONE, WHATSAPP_LINK } from "@/lib/nav";
+import { CONTACTS, CONTACT_EMAIL } from "@/lib/nav";
 
 export const metadata: Metadata = {
   title: "Contact | HappyFrU",
@@ -17,25 +17,35 @@ export const metadata: Metadata = {
     "Get in touch with HappyFrU for advertiser, fleet partner, or investor inquiries.",
 };
 
-const CONTACT_METHODS = [
-  {
-    icon: Phone,
-    label: "Phone",
-    value: CONTACT_PHONE,
-    href: `tel:${CONTACT_PHONE.replace(/\s/g, "")}`,
-  },
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "Chat with our team",
-    href: WHATSAPP_LINK,
-    external: true,
-  },
+type ContactMethod = {
+  icon: typeof Phone;
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+};
+
+const CONTACT_METHODS: ContactMethod[] = [
+  ...CONTACTS.flatMap((c): ContactMethod[] => [
+    {
+      icon: Phone,
+      label: `Phone — ${c.name}`,
+      value: c.phone,
+      href: `tel:${c.phone.replace(/\s/g, "")}`,
+    },
+    {
+      icon: MessageCircle,
+      label: `WhatsApp — ${c.name}`,
+      value: "Chat with our team",
+      href: `https://wa.me/${c.whatsappNumber}`,
+      external: true,
+    },
+  ]),
   {
     icon: Mail,
     label: "Email",
-    value: "hello@happyfru.com",
-    href: "mailto:hello@happyfru.com",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     icon: MapPin,

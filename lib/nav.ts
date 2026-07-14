@@ -24,6 +24,22 @@ export const PRIMARY_NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export const WHATSAPP_NUMBER = "917010612345";
+export const CONTACTS = [
+  {
+    name: "Suyash",
+    phone: "+91 90426 30641",
+    whatsappNumber: "919042630641",
+  },
+  {
+    name: "Sujan",
+    phone: "+91 80567 45018",
+    whatsappNumber: "918056745018",
+  },
+] as const;
+
+export const CONTACT_EMAIL = "anantaskandainfographics@gmail.com";
+
+// Primary contact — used wherever only a single phone/WhatsApp link fits.
+export const CONTACT_PHONE = CONTACTS[0].phone;
+export const WHATSAPP_NUMBER = CONTACTS[0].whatsappNumber;
 export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
-export const CONTACT_PHONE = "+91 70106 12345";

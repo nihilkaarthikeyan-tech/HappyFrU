@@ -50,7 +50,7 @@ import HowItWorksTimeline from "@/components/HowItWorksTimeline";
 import WaveDivider from "@/components/WaveDivider";
 import LiveTicker from "@/components/LiveTicker";
 import SectionNav from "@/components/SectionNav";
-import { WHATSAPP_LINK } from "@/lib/nav";
+import { CONTACTS } from "@/lib/nav";
 
 const HERO_STATS = [
   { icon: Monitor, value: "720+", label: "Daily Views\nPer Screen" },
@@ -221,16 +221,19 @@ export default function Home() {
               >
                 Become a Fleet Partner
               </TrackedLink>
-              <TrackedLink
-                href={WHATSAPP_LINK}
-                event="whatsapp_click"
-                location="home_hero"
-                newTab
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-navy hover:underline"
-              >
-                <MessageCircle size={16} />
-                Chat on WhatsApp
-              </TrackedLink>
+              {CONTACTS.map((c, i) => (
+                <TrackedLink
+                  key={c.name}
+                  href={`https://wa.me/${c.whatsappNumber}`}
+                  event="whatsapp_click"
+                  location="home_hero"
+                  newTab
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-navy hover:underline"
+                >
+                  {i === 0 && <MessageCircle size={16} />}
+                  WhatsApp {c.name}
+                </TrackedLink>
+              ))}
             </div>
           </div>
 
