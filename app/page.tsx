@@ -33,6 +33,8 @@ import {
   Smartphone,
   MonitorSmartphone,
   ArrowRight,
+  Quote,
+  type LucideIcon,
 } from "lucide-react";
 import HeroScreen from "@/components/HeroScreen";
 import IconCard from "@/components/IconCard";
@@ -51,6 +53,14 @@ import WaveDivider from "@/components/WaveDivider";
 import LiveTicker from "@/components/LiveTicker";
 import SectionNav from "@/components/SectionNav";
 import { CONTACTS } from "@/lib/nav";
+import { ADVERTISER_URL } from "@/lib/platform";
+import {
+  getStats,
+  getTestimonials,
+  type PlatformStat,
+  type TestimonialBody,
+  type ContentItem,
+} from "@/lib/content";
 
 const HERO_STATS = [
   { icon: Monitor, value: "720+", label: "Monthly Views\nPer Screen" },
@@ -58,6 +68,52 @@ const HERO_STATS = [
   { icon: Users, value: "50+", label: "Planned\nDigital Screens" },
   { icon: BarChart3, value: "95%", label: "Ad Completion\nRate" },
 ];
+
+const FALLBACK_TESTIMONIALS: ContentItem<TestimonialBody>[] = [
+  {
+    id: "fallback-1",
+    title: "Anjali Electronics",
+    slug: null,
+    coverKey: null,
+    body: {
+      brand: "Anjali Electronics",
+      industry: "Retail",
+      quote:
+        "We tested one route for a month and walk-ins from that side of the city noticeably picked up.",
+      result: "Noticeable rise in walk-ins",
+    },
+  },
+  {
+    id: "fallback-2",
+    title: "Prime Residency",
+    slug: null,
+    coverKey: null,
+    body: {
+      brand: "Prime Residency",
+      industry: "Real Estate",
+      quote:
+        "Site-visit enquiries from our QR ad outperformed every other channel we tried that quarter.",
+      result: "Top-performing lead channel",
+    },
+  },
+];
+
+/** Maps a live stat's free-text label to the closest existing icon. */
+function iconForStat(label: string): LucideIcon {
+  const l = label.toLowerCase();
+  if (l.includes("screen")) return Monitor;
+  if (l.includes("impression")) return Eye;
+  if (l.includes("cit")) return MapPin;
+  if (l.includes("brand")) return Star;
+  if (l.includes("reach") || l.includes("passenger")) return Users;
+  if (l.includes("time") || l.includes("minute") || l.includes("view")) return Clock;
+  if (l.includes("rate") || l.includes("completion") || l.includes("%")) return BarChart3;
+  return Target;
+}
+
+function formatStatValue(stat: PlatformStat) {
+  return `${stat.value.toLocaleString("en-IN")}${stat.suffix ?? ""}`;
+}
 
 const PLATFORM_COMPONENTS = [
   {
@@ -162,7 +218,28 @@ const WHO_WE_SERVE = [
   { icon: Plane, label: "Travel" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const liveStats = await getStats();
+  const liveTestimonials = await getTestimonials();
+
+  const heroStats = liveStats
+    ? liveStats.slice(0, 4).map((stat) => ({
+        icon: iconForStat(stat.label),
+        value: formatStatValue(stat),
+        label: stat.label,
+      }))
+    : HERO_STATS;
+
+  const networkStats = liveStats
+    ? liveStats.map((stat) => ({
+        icon: iconForStat(stat.label),
+        value: formatStatValue(stat),
+        label: stat.label,
+      }))
+    : NETWORK_STATS;
+
+  const testimonials = liveTestimonials ?? FALLBACK_TESTIMONIALS;
+
   return (
     <>
       <SectionNav />
@@ -171,7 +248,9 @@ export default function Home() {
       <section className="relative overflow-hidden bg-brand-yellow">
         <GradientBlobs />
         <div className="relative container-page pt-10 pb-8 sm:pt-16 sm:pb-12 grid lg:grid-cols-2 gap-10 items-center">
-          <div className="animate-fade-in-up">
+          {/* No entrance animation on this wrapper: the h1 is the LCP element
+              and must paint immediately (PRD §5.3 performance budget). */}
+          <div>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-brand-navy leading-tight">
               India&apos;s Smart
               <br />
@@ -187,7 +266,7 @@ export default function Home() {
             </p>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
-              {HERO_STATS.map((stat, i) => (
+              {heroStats.map((stat, i) => (
                 <div
                   key={stat.label}
                   className="rounded-xl bg-white/70 px-3 py-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-md animate-fade-in-up"
@@ -204,9 +283,12 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div
+              className="mt-7 flex flex-wrap items-center gap-3 animate-fade-in-up"
+              style={{ animationDelay: "150ms" }}
+            >
               <TrackedLink
-                href="/contact"
+                href={`${ADVERTISER_URL}/signup`}
                 event="cta_click"
                 location="home_hero_start_campaign"
                 className="inline-flex items-center justify-center rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-navy-light hover:scale-105"
@@ -371,7 +453,7 @@ export default function Home() {
         <div className="container-page">
           <LiveTicker />
           <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {NETWORK_STATS.map((stat, i) => (
+            {networkStats.map((stat, i) => (
               <StatBadge key={stat.label} {...stat} variant="dark" delay={i * 80} />
             ))}
           </div>
@@ -394,6 +476,46 @@ export default function Home() {
                 <span className="text-sm font-semibold text-brand-navy">
                   {item.label}
                 </span>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="scroll-mt-24 bg-brand-yellow-light/40 py-16 sm:py-20">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="Success Stories"
+            title="What Brands Say"
+            highlight="About HappyFrU"
+          />
+          <div className="mt-10 grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
+            {testimonials.map((t, i) => (
+              <Reveal key={t.id} delay={i * 100}>
+                <div className="h-full rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
+                  <Quote className="text-brand-yellow-dark" size={28} />
+                  <p className="mt-3 text-brand-navy/80 leading-relaxed">
+                    &ldquo;{t.body.quote}&rdquo;
+                  </p>
+                  <div className="mt-5 flex items-center justify-between gap-3 border-t border-black/5 pt-4">
+                    <div>
+                      <div className="font-bold text-brand-navy text-sm">
+                        {t.body.brand ?? t.title}
+                      </div>
+                      {t.body.industry && (
+                        <div className="text-xs text-brand-navy/60">
+                          {t.body.industry}
+                        </div>
+                      )}
+                    </div>
+                    {t.body.result && (
+                      <div className="rounded-full bg-brand-yellow-light px-3 py-1 text-xs font-semibold text-brand-navy whitespace-nowrap">
+                        {t.body.result}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </Reveal>
             ))}
           </div>

@@ -143,7 +143,6 @@ export default function AdvertisersPage() {
       <CTABand
         heading="Start Your Campaign"
         subheading="Tell us your target cities and audience — we'll help you plan the rest."
-        primaryHref="/contact"
         primaryLabel="Start Your Campaign"
       />
     </>

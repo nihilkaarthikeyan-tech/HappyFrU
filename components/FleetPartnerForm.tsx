@@ -3,20 +3,11 @@
 import { useState } from "react";
 import { Loader2, CheckCircle2 } from "lucide-react";
 
-const INQUIRY_TYPES = [
-  { value: "advertiser", label: "Advertiser Inquiry" },
-  { value: "fleet", label: "Fleet Partner Inquiry" },
-  { value: "investor", label: "Investor Inquiry" },
-  { value: "general", label: "General Inquiry" },
-];
+const VEHICLE_TYPES = ["Sedan", "Hatchback", "SUV", "Fleet (mixed)"];
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm({
-  defaultInquiryType = "general",
-}: {
-  defaultInquiryType?: string;
-}) {
+export default function FleetPartnerForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -55,17 +46,14 @@ export default function ContactForm({
       <div className="rounded-xl border border-brand-yellow-dark/30 bg-brand-yellow-light p-8 text-center">
         <CheckCircle2 className="mx-auto text-brand-navy" size={36} />
         <h3 className="mt-3 font-bold text-brand-navy text-lg">
-          Thanks — we&apos;ve got your message
+          Received. Our team will call you within one working day.
         </h3>
-        <p className="mt-2 text-sm text-brand-navy/70">
-          Our team typically responds within one business day.
-        </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
           className="mt-4 text-sm font-semibold text-brand-navy underline"
         >
-          Send another message
+          Submit another application
         </button>
       </div>
     );
@@ -73,43 +61,28 @@ export default function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-4">
-      <div>
-        <label htmlFor="contact-inquiry-type" className="block text-sm font-semibold text-brand-navy mb-1.5">
-          I&apos;m reaching out as a...
-        </label>
-        <select
-          id="contact-inquiry-type"
-          name="inquiryType"
-          defaultValue={defaultInquiryType}
-          className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
-        >
-          {INQUIRY_TYPES.map((type) => (
-            <option key={type.value} value={type.value}>
-              {type.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <input type="hidden" name="inquiryType" value="fleet" />
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="contact-name" className="block text-sm font-semibold text-brand-navy mb-1.5">
+          <label htmlFor="fleet-name" className="block text-sm font-semibold text-brand-navy mb-1.5">
             Name
           </label>
           <input
             required
-            id="contact-name"
+            id="fleet-name"
             name="name"
             type="text"
             className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
           />
         </div>
         <div>
-          <label htmlFor="contact-phone" className="block text-sm font-semibold text-brand-navy mb-1.5">
+          <label htmlFor="fleet-phone" className="block text-sm font-semibold text-brand-navy mb-1.5">
             Phone
           </label>
           <input
-            id="contact-phone"
+            required
+            id="fleet-phone"
             name="phone"
             type="tel"
             className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
@@ -117,26 +90,73 @@ export default function ContactForm({
         </div>
       </div>
 
-      <div>
-        <label htmlFor="contact-email" className="block text-sm font-semibold text-brand-navy mb-1.5">
-          Email
-        </label>
-        <input
-          required
-          id="contact-email"
-          name="email"
-          type="email"
-          className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
-        />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="fleet-email" className="block text-sm font-semibold text-brand-navy mb-1.5">
+            Email
+          </label>
+          <input
+            id="fleet-email"
+            name="email"
+            type="email"
+            className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
+          />
+        </div>
+        <div>
+          <label htmlFor="fleet-city" className="block text-sm font-semibold text-brand-navy mb-1.5">
+            City
+          </label>
+          <input
+            id="fleet-city"
+            name="city"
+            type="text"
+            className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
+          />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="fleet-vehicle-type" className="block text-sm font-semibold text-brand-navy mb-1.5">
+            Vehicle Type
+          </label>
+          <select
+            id="fleet-vehicle-type"
+            name="vehicleType"
+            defaultValue=""
+            className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
+          >
+            <option value="" disabled>
+              Select a vehicle type
+            </option>
+            {VEHICLE_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="fleet-vehicle-count" className="block text-sm font-semibold text-brand-navy mb-1.5">
+            Vehicle Count
+          </label>
+          <input
+            id="fleet-vehicle-count"
+            name="vehicleCount"
+            type="number"
+            min={1}
+            step={1}
+            className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
+          />
+        </div>
       </div>
 
       <div>
-        <label htmlFor="contact-message" className="block text-sm font-semibold text-brand-navy mb-1.5">
+        <label htmlFor="fleet-message" className="block text-sm font-semibold text-brand-navy mb-1.5">
           Message
         </label>
         <textarea
-          required
-          id="contact-message"
+          id="fleet-message"
           name="message"
           rows={4}
           className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30"
@@ -153,7 +173,7 @@ export default function ContactForm({
         className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors disabled:opacity-60"
       >
         {status === "submitting" && <Loader2 className="animate-spin" size={16} />}
-        Send Message
+        Submit Application
       </button>
 
       {/* Honeypot — humans never see or fill this; the platform discards any

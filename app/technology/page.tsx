@@ -11,6 +11,12 @@ import {
   MonitorPlay,
   LineChart,
   ArrowRight,
+  RadioTower,
+  LayoutGrid,
+  WifiOff,
+  FileCheck,
+  QrCode,
+  ShieldCheck,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -61,6 +67,60 @@ const TECH_CAPABILITIES = [
     title: "Auto-Sync on Reconnect",
     description:
       "Displays cache content locally and sync automatically the moment connectivity returns — no manual intervention required.",
+  },
+  {
+    icon: RadioTower,
+    title: "Live Advertisement Update",
+    description:
+      "Push new creative to any screen in minutes — campaigns update live without touching a single vehicle.",
+  },
+  {
+    icon: CalendarClock,
+    title: "Campaign Scheduling",
+    description:
+      "Book by city, route, time slot, and duration — the scheduler places every play automatically.",
+  },
+  {
+    icon: LayoutGrid,
+    title: "Multiple Screen Layouts",
+    description:
+      "Full-screen, split, and ticker layouts let one display carry more than one content zone at a time.",
+  },
+  {
+    icon: MonitorPlay,
+    title: "Video + Image Support",
+    description:
+      "HD video spots and static image creatives both play natively on every display in the network.",
+  },
+  {
+    icon: WifiOff,
+    title: "Offline Playback",
+    description:
+      "Content is cached on-device, so ads keep playing even when a cab drops connectivity mid-route.",
+  },
+  {
+    icon: FileCheck,
+    title: "Content Approval",
+    description:
+      "Every creative passes an admin review before it goes live — nothing plays that hasn't been approved.",
+  },
+  {
+    icon: LineChart,
+    title: "Analytics Dashboard",
+    description:
+      "Impressions, play counts, and delivery status roll into a single dashboard for every campaign.",
+  },
+  {
+    icon: QrCode,
+    title: "QR Code Tracking",
+    description:
+      "Every QR scan is logged and attributed, tying on-screen ads to real customer actions.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Brand-Safe Advertising",
+    description:
+      "Curated inventory and reviewed creatives keep your brand away from content it shouldn't sit beside.",
   },
 ];
 
@@ -141,7 +201,6 @@ export default function TechnologyPage() {
       <CTABand
         heading="Talk to us about the platform"
         subheading="For technical evaluators and investors — request a deeper architecture walkthrough."
-        primaryHref="/contact"
         primaryLabel="Request a Walkthrough"
       />
     </>

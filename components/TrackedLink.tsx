@@ -11,6 +11,7 @@ export default function TrackedLink({
   newTab = false,
   className,
   children,
+  "aria-label": ariaLabel,
 }: {
   href: string;
   event: string;
@@ -18,6 +19,7 @@ export default function TrackedLink({
   newTab?: boolean;
   className?: string;
   children: ReactNode;
+  "aria-label"?: string;
 }) {
   const handleClick = () => track(event, { location });
   const isInternal = href.startsWith("/") || href.startsWith("#");
@@ -29,6 +31,7 @@ export default function TrackedLink({
         target={newTab ? "_blank" : undefined}
         rel={newTab ? "noopener noreferrer" : undefined}
         className={className}
+        aria-label={ariaLabel}
         onClick={handleClick}
       >
         {children}
@@ -37,7 +40,7 @@ export default function TrackedLink({
   }
 
   return (
-    <Link href={href} className={className} onClick={handleClick}>
+    <Link href={href} className={className} aria-label={ariaLabel} onClick={handleClick}>
       {children}
     </Link>
   );

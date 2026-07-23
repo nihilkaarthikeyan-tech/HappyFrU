@@ -21,14 +21,23 @@ export default function RotatingWord({
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
-    const id = setInterval(() => {
-      setEntering(false);
-      setTimeout(() => {
-        setIndex((i) => (i + 1) % words.length);
-        setEntering(true);
-      }, 300);
-    }, interval);
-    return () => clearInterval(id);
+    // Hold the first word ~5s before cycling: the word sits inside the hero
+    // h1 (the LCP element), and an early swap re-registers it as a new LCP
+    // candidate, inflating the measured LCP (PRD §5.3 performance budget).
+    let id: ReturnType<typeof setInterval> | undefined;
+    const startId = setTimeout(() => {
+      id = setInterval(() => {
+        setEntering(false);
+        setTimeout(() => {
+          setIndex((i) => (i + 1) % words.length);
+          setEntering(true);
+        }, 300);
+      }, interval);
+    }, 5000);
+    return () => {
+      clearTimeout(startId);
+      if (id) clearInterval(id);
+    };
   }, [words.length, interval]);
 
   // Reserve width for the longest word so layout doesn't jump.

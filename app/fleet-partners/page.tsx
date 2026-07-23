@@ -16,6 +16,7 @@ import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
 import Reveal from "@/components/Reveal";
 import WaveDivider from "@/components/WaveDivider";
+import FleetPartnerForm from "@/components/FleetPartnerForm";
 
 export const metadata: Metadata = {
   title: "Fleet Partners | HappyFrU",
@@ -154,10 +155,24 @@ export default function FleetPartnersPage() {
         </div>
       </section>
 
+      <section id="apply" className="scroll-mt-24 pb-16 sm:pb-20">
+        <div className="container-page max-w-xl mx-auto">
+          <SectionHeading
+            eyebrow="Apply"
+            title="Become a"
+            highlight="Fleet Partner"
+            subtitle="Tell us about your fleet — city, vehicle count, and vehicle type — and we'll get back with next steps."
+          />
+          <Reveal delay={100} className="mt-8">
+            <FleetPartnerForm />
+          </Reveal>
+        </div>
+      </section>
+
       <CTABand
         heading="Become a Fleet Partner"
         subheading="Tell us about your fleet — city, vehicle count, and vehicle type — and we'll get back with next steps."
-        primaryHref="/contact"
+        primaryHref="#apply"
         primaryLabel="Become a Fleet Partner"
       />
     </>

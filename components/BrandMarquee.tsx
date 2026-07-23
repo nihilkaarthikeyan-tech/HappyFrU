@@ -9,6 +9,13 @@ import {
   Clapperboard,
   ShoppingBag,
   Plane,
+  PartyPopper,
+  Hospital,
+  Gem,
+  Shirt,
+  Building2,
+  Vote,
+  HeartHandshake,
 } from "lucide-react";
 
 const CHIPS = [
@@ -22,6 +29,13 @@ const CHIPS = [
   { icon: Clapperboard, label: "Entertainment" },
   { icon: ShoppingBag, label: "E-commerce" },
   { icon: Plane, label: "Travel" },
+  { icon: PartyPopper, label: "Events" },
+  { icon: Hospital, label: "Hospitals" },
+  { icon: Gem, label: "Jewellery" },
+  { icon: Shirt, label: "Textiles" },
+  { icon: Building2, label: "Government Campaigns" },
+  { icon: Vote, label: "Political Awareness" },
+  { icon: HeartHandshake, label: "NGOs" },
 ];
 
 export default function BrandMarquee() {

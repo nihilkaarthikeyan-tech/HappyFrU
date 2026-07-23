@@ -4,6 +4,7 @@ import SectionHeading from "@/components/SectionHeading";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTABand from "@/components/CTABand";
 import Reveal from "@/components/Reveal";
+import { getFaqs } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "FAQ | HappyFrU",
@@ -57,7 +58,9 @@ const FLEET_FAQS = [
   },
 ];
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const liveFaqs = await getFaqs();
+
   return (
     <>
       <PageHero
@@ -66,28 +69,45 @@ export default function FAQPage() {
         subtitle="Answers for advertisers and fleet partners. Don't see your question? Reach out and we'll get back to you directly."
       />
 
-      <section className="py-16 sm:py-20">
-        <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading eyebrow="Advertisers" title="For Advertisers" center={false} />
-          <Reveal delay={120} className="mt-6">
-            <FAQAccordion items={ADVERTISER_FAQS} />
-          </Reveal>
-        </div>
-      </section>
+      {liveFaqs ? (
+        <section className="py-16 sm:py-20">
+          <div className="container-page max-w-3xl mx-auto">
+            <SectionHeading eyebrow="FAQ" title="Frequently Asked Questions" center={false} />
+            <Reveal delay={120} className="mt-6">
+              <FAQAccordion
+                items={liveFaqs.map((f) => ({
+                  question: f.title,
+                  answer: f.body.answer,
+                }))}
+              />
+            </Reveal>
+          </div>
+        </section>
+      ) : (
+        <>
+          <section className="py-16 sm:py-20">
+            <div className="container-page max-w-3xl mx-auto">
+              <SectionHeading eyebrow="Advertisers" title="For Advertisers" center={false} />
+              <Reveal delay={120} className="mt-6">
+                <FAQAccordion items={ADVERTISER_FAQS} />
+              </Reveal>
+            </div>
+          </section>
 
-      <section className="pb-16 sm:pb-20">
-        <div className="container-page max-w-3xl mx-auto">
-          <SectionHeading eyebrow="Fleet Partners" title="For Fleet Partners" center={false} />
-          <Reveal delay={120} className="mt-6">
-            <FAQAccordion items={FLEET_FAQS} />
-          </Reveal>
-        </div>
-      </section>
+          <section className="pb-16 sm:pb-20">
+            <div className="container-page max-w-3xl mx-auto">
+              <SectionHeading eyebrow="Fleet Partners" title="For Fleet Partners" center={false} />
+              <Reveal delay={120} className="mt-6">
+                <FAQAccordion items={FLEET_FAQS} />
+              </Reveal>
+            </div>
+          </section>
+        </>
+      )}
 
       <CTABand
         heading="Still have questions?"
         subheading="Our team typically responds within one business day."
-        primaryHref="/contact"
         primaryLabel="Contact Us"
       />
     </>

@@ -12,12 +12,15 @@ import {
   MapPin,
   Clock3,
   Bell,
+  CloudSun,
+  Landmark,
+  Rocket,
+  Tag,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import IconCard from "@/components/IconCard";
 import CTABand from "@/components/CTABand";
-import Reveal from "@/components/Reveal";
 import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
@@ -54,14 +57,78 @@ const CAPABILITIES = [
 ];
 
 const AD_FORMATS = [
-  { icon: MonitorPlay, label: "Video Ads" },
-  { icon: ImageIcon, label: "Image Ads" },
-  { icon: QrCode, label: "QR Code Ads" },
-  { icon: Percent, label: "Coupon Ads" },
-  { icon: Gift, label: "Festival Campaigns" },
-  { icon: MapPin, label: "Location Based Ads" },
-  { icon: Clock3, label: "Time Based Ads" },
-  { icon: Bell, label: "Emergency Alerts" },
+  {
+    icon: ImageIcon,
+    title: "Image Ads",
+    description:
+      "Static HD creatives — the simplest way to put your brand in front of every passenger.",
+  },
+  {
+    icon: MonitorPlay,
+    title: "Video Ads",
+    description:
+      "HD video spots that hold attention for the length of the ride — no skipping, no scrolling past.",
+  },
+  {
+    icon: QrCode,
+    title: "Interactive QR Ads",
+    description:
+      "On-screen QR codes passengers scan to reach your site, store, or offer — every scan tracked.",
+  },
+  {
+    icon: Percent,
+    title: "Coupon Ads",
+    description:
+      "Scannable discount codes that turn a ride into a store visit you can measure.",
+  },
+  {
+    icon: Gift,
+    title: "Festival Campaigns",
+    description:
+      "Seasonal creatives timed to Diwali, Pongal, and every festival window that matters to your audience.",
+  },
+  {
+    icon: MapPin,
+    title: "Location-Based Ads",
+    description:
+      "Creatives triggered by area — show the right ad when the cab is near your outlet.",
+  },
+  {
+    icon: Clock3,
+    title: "Time-Based Ads",
+    description:
+      "Breakfast offers in the morning, dinner offers at night — your slots follow the clock.",
+  },
+  {
+    icon: CloudSun,
+    title: "Weather-Based Ads",
+    description:
+      "Creatives that switch with the weather — cold drinks in the heat, hot chai when it rains.",
+  },
+  {
+    icon: Bell,
+    title: "Emergency Alerts",
+    description:
+      "Public-safety broadcasts that override scheduled content when authorities need every screen.",
+  },
+  {
+    icon: Landmark,
+    title: "Government Notifications",
+    description:
+      "Civic announcements and public-interest messaging delivered across the city's fleet.",
+  },
+  {
+    icon: Rocket,
+    title: "Brand Launches",
+    description:
+      "High-frequency bursts that put a new brand everywhere at once during launch week.",
+  },
+  {
+    icon: Tag,
+    title: "Product Promotions",
+    description:
+      "Focused pushes for a single product or offer — short, dense, and measurable.",
+  },
 ];
 
 export default function SolutionsPage() {
@@ -96,23 +163,12 @@ export default function SolutionsPage() {
             eyebrow="Ad Formats"
             title="Ad Formats"
             highlight="We Support"
-            subtitle="Choose the format that fits your campaign goal — mix and match across a single booking."
+            subtitle="Twelve formats to match any campaign goal — mix and match across a single booking."
             tone="onYellow"
           />
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {AD_FORMATS.map((item, i) => (
-              <Reveal
-                key={item.label}
-                delay={i * 70}
-                className="group flex flex-col items-center text-center gap-2"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-brand-navy transition-all duration-300 group-hover:scale-110 group-hover:shadow-md">
-                  <item.icon size={24} />
-                </div>
-                <span className="text-sm font-medium text-brand-navy/80">
-                  {item.label}
-                </span>
-              </Reveal>
+              <IconCard key={item.title} {...item} delay={i * 60} />
             ))}
           </div>
         </div>

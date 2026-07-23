@@ -1,12 +1,13 @@
 import { MessageCircle, QrCode } from "lucide-react";
 import { CONTACTS } from "@/lib/nav";
+import { ADVERTISER_URL } from "@/lib/platform";
 import TrackedLink from "./TrackedLink";
 import Reveal from "./Reveal";
 
 export default function CTABand({
   heading = "Ready to Grow Your Brand?",
   subheading = "Let's connect your brand with thousands of happy passengers every day.",
-  primaryHref = "/contact",
+  primaryHref = `${ADVERTISER_URL}/signup`,
   primaryLabel = "Start Your Campaign",
 }: {
   heading?: string;

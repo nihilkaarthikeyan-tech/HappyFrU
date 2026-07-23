@@ -25,6 +25,7 @@ import CTABand from "@/components/CTABand";
 import Reveal from "@/components/Reveal";
 import WaveDivider from "@/components/WaveDivider";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { getCityCoverage } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About Us | HappyFrU",
@@ -126,7 +127,23 @@ const WHY_WE_EXIST = [
   "Accessible for businesses of every size",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Facts: city/screen counts prefer the live figure whenever the API is
+  // reachable, even when the result is an empty list — only network failure
+  // falls back to the hardcoded QUICK_STATS numbers.
+  const coverage = await getCityCoverage();
+  const quickStats = QUICK_STATS.map((stat) => {
+    if (!coverage) return stat;
+    if (stat.label === "Cities") {
+      return { ...stat, value: `${coverage.length}` };
+    }
+    if (stat.label === "Screens Planned") {
+      const total = coverage.reduce((sum, c) => sum + c.screens, 0);
+      return { ...stat, value: `${total}` };
+    }
+    return stat;
+  });
+
   return (
     <>
       <PageHero
@@ -153,7 +170,7 @@ export default function AboutPage() {
 
         <div className="container-page mt-12">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {QUICK_STATS.map((s, i) => (
+            {quickStats.map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="rounded-2xl border border-black/5 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                   <s.icon className="mx-auto text-brand-navy" size={22} />
