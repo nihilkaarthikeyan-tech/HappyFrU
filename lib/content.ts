@@ -91,8 +91,9 @@ export type LongFormBody = { markdown?: string; html?: string };
 
 export type BlogBody = LongFormBody;
 
-// New sections with no hardcoded equivalent — unreachable/empty both resolve
-// to an empty list, which the page renders as a tasteful "no content" state.
+// getBlogIndex/getBlogPost resolve unreachable-or-empty to []/null with no
+// opinion on fallback content — callers (app/blog/*) decide whether to show
+// an empty state or the snapshot below.
 export async function getBlogIndex(): Promise<ContentItem<BlogBody>[]> {
   return (await fetchJSON<ContentItem<BlogBody>[]>("/api/v1/content/blog")) ?? [];
 }
@@ -104,6 +105,39 @@ export async function getBlogPost(
     `/api/v1/content/blog/${encodeURIComponent(slug)}`
   );
 }
+
+/**
+ * Snapshot of the real seeded posts, taken 2026-07-24, for use when the API
+ * is unreachable. Goes stale the moment real posts are added or edited —
+ * once the platform API has a public URL, live data always wins and this is
+ * never used.
+ */
+export const FALLBACK_BLOG_POSTS: ContentItem<BlogBody>[] = [
+  {
+    id: "cmrorzzvh0002kfgs6lxtaduu",
+    title: "How we measure a cab-top campaign",
+    slug: "measuring-cab-top-campaigns",
+    coverKey: null,
+    seo: {
+      title: "Measuring cab-top campaigns",
+      description: "How HAPPYfrU logs every play with time and GPS.",
+    },
+    createdAt: "2026-07-17T10:09:10.493Z",
+    body: {
+      markdown:
+        "## Every play is logged\n\nEach device records **time and GPS** for every play.\n\n- Rolled into daily reports\n- Downloadable as CSV\n\n> No guesswork.\n",
+    },
+  },
+  {
+    id: "cmrojdahb000y3fc1ula00gl7",
+    title: "Why in-cab advertising works",
+    slug: "why-in-cab-works",
+    coverKey: null,
+    seo: { description: "In-cab advertising explained" },
+    createdAt: "2026-07-17T06:07:34.224Z",
+    body: { html: "<p>22 minutes of attention per ride.</p>" },
+  },
+];
 
 export type CaseStudyBody = LongFormBody & {
   brand?: string;

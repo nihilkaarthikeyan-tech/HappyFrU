@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Newspaper, ArrowRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { getBlogIndex } from "@/lib/content";
+import { getBlogIndex, FALLBACK_BLOG_POSTS } from "@/lib/content";
 import { API } from "@/lib/platform";
 
 export const metadata: Metadata = {
@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  const posts = await getBlogIndex();
+  const liveOrEmpty = await getBlogIndex();
+  const posts = liveOrEmpty.length > 0 ? liveOrEmpty : FALLBACK_BLOG_POSTS;
 
   return (
     <>

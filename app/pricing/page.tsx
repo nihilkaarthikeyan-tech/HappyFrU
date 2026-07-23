@@ -10,6 +10,55 @@ import InvestmentCalculator from "@/components/InvestmentCalculator";
 import { getPlans, type Plan } from "@/lib/content";
 import { SIGNUP_URL } from "@/lib/platform";
 
+/**
+ * Snapshot of the real plan list, taken 2026-07-24, for use when the API is
+ * unreachable. Only Enterprise has a real price in the platform's plan
+ * editor right now — the others fall back to FALLBACK_PLAN_CONTENT below,
+ * same as the live-but-unpopulated case. Never used once live data returns.
+ */
+const SNAPSHOT_PLANS: Plan[] = [
+  {
+    id: "cmrnwk9g8000avb807841vtv5",
+    name: "Starter",
+    description: null,
+    inclusions: null,
+    isActive: true,
+    sortOrder: 0,
+    recurringPricePaise: null,
+    recurringInterval: null,
+  },
+  {
+    id: "cmrnwk9gl000bvb809h3uh0i1",
+    name: "Growth",
+    description: null,
+    inclusions: null,
+    isActive: true,
+    sortOrder: 1,
+    recurringPricePaise: null,
+    recurringInterval: null,
+  },
+  {
+    id: "cmrnwk9gu000cvb8054rn61y5",
+    name: "Premium",
+    description: null,
+    inclusions: null,
+    isActive: true,
+    sortOrder: 2,
+    recurringPricePaise: null,
+    recurringInterval: null,
+  },
+  {
+    id: "cmrnwk9h3000dvb801f52oz99",
+    name: "Enterprise",
+    description: null,
+    inclusions: null,
+    isActive: true,
+    sortOrder: 3,
+    recurringPricePaise: 5000000,
+    recurringInterval: "MONTHLY",
+  },
+];
+
 export const metadata: Metadata = {
   title: "Pricing | HappyFrU",
   description:
@@ -111,7 +160,7 @@ const FACTORS = [
 ];
 
 export default async function PricingPage() {
-  const plans = await getPlans();
+  const plans = (await getPlans()) ?? SNAPSHOT_PLANS;
 
   return (
     <>

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import MarkdownBody from "@/components/MarkdownBody";
-import { getBlogPost } from "@/lib/content";
+import { getBlogPost, FALLBACK_BLOG_POSTS } from "@/lib/content";
 import { API } from "@/lib/platform";
 
 export async function generateMetadata({
@@ -13,7 +13,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post =
+    (await getBlogPost(slug)) ?? FALLBACK_BLOG_POSTS.find((p) => p.slug === slug) ?? null;
   if (!post) return { title: "Blog | HappyFrU" };
 
   return {
@@ -28,7 +29,8 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post =
+    (await getBlogPost(slug)) ?? FALLBACK_BLOG_POSTS.find((p) => p.slug === slug) ?? null;
   if (!post) notFound();
 
   const coverUrl = post.coverKey ? `${API}/api/v1/files/${post.coverKey}` : null;

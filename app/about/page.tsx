@@ -33,10 +33,14 @@ export const metadata: Metadata = {
     "Building India's smartest digital in-cab advertising ecosystem. Learn who HappyFrU is, why we started, and where we're headed.",
 };
 
+// Screens/Cities snapshot real coverage data as of 2026-07-24 (11+0+1 screens
+// across 3 cities), for parity when the API is unreachable — see the
+// getCityCoverage() call below, which overrides these with live figures
+// whenever it can reach the platform.
 const QUICK_STATS = [
-  { icon: Monitor, value: "50+", label: "Screens Planned" },
+  { icon: Monitor, value: "12", label: "Screens Planned" },
   { icon: Users, value: "25,000+", label: "Daily Reach" },
-  { icon: MapPin, value: "5+", label: "Cities" },
+  { icon: MapPin, value: "3", label: "Cities" },
   { icon: Star, value: "200+", label: "Brands Onboarded" },
 ];
 

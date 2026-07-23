@@ -62,38 +62,33 @@ import {
   type ContentItem,
 } from "@/lib/content";
 
-const HERO_STATS = [
-  { icon: Monitor, value: "720+", label: "Monthly Views\nPer Screen" },
-  { icon: Clock, value: "15–25", label: "Minutes\nAvg. Viewing Time" },
-  { icon: Users, value: "50+", label: "Planned\nDigital Screens" },
-  { icon: BarChart3, value: "95%", label: "Ad Completion\nRate" },
+/**
+ * Snapshot of real platform data, taken 2026-07-24, for use when the API is
+ * unreachable (e.g. a Vercel build with no NEXT_PUBLIC_API_URL configured).
+ * This is NOT a substitute for the live wiring — it goes stale the moment the
+ * real numbers change. Once the platform API has a public URL, these are
+ * never used; live data always wins. Update this snapshot, or better, get the
+ * API publicly reachable so it's unnecessary.
+ */
+const SNAPSHOT_STATS: PlatformStat[] = [
+  { label: "Active screens", value: 11 },
+  { label: "Daily impressions", value: 52000, suffix: "+" },
+  { label: "Cities covered", value: 3 },
+  { label: "Active brands", value: 31 },
+  { label: "Monthly reach", value: 1600000, suffix: "+" },
 ];
 
 const FALLBACK_TESTIMONIALS: ContentItem<TestimonialBody>[] = [
   {
-    id: "fallback-1",
-    title: "Anjali Electronics",
+    id: "cmros00050004kfgsev9a0y5t",
+    title: "Kumaran Silks",
     slug: null,
     coverKey: null,
     body: {
-      brand: "Anjali Electronics",
+      brand: "Kumaran Silks",
       industry: "Retail",
-      quote:
-        "We tested one route for a month and walk-ins from that side of the city noticeably picked up.",
-      result: "Noticeable rise in walk-ins",
-    },
-  },
-  {
-    id: "fallback-2",
-    title: "Prime Residency",
-    slug: null,
-    coverKey: null,
-    body: {
-      brand: "Prime Residency",
-      industry: "Real Estate",
-      quote:
-        "Site-visit enquiries from our QR ad outperformed every other channel we tried that quarter.",
-      result: "Top-performing lead channel",
+      quote: "Footfall from the airport route doubled during the festival window.",
+      result: "2x weekend footfall",
     },
   },
 ];
@@ -197,14 +192,6 @@ const AD_SOLUTIONS = [
   { icon: Bell, label: "Emergency Alerts" },
 ];
 
-const NETWORK_STATS = [
-  { icon: Monitor, value: "50+", label: "Digital Screens (Planned)" },
-  { icon: Users, value: "25,000+", label: "Daily Passenger Reach" },
-  { icon: Eye, value: "7,50,000+", label: "Monthly Impressions (Estimated)" },
-  { icon: MapPin, value: "5+", label: "Cities (Expansion Plan)" },
-  { icon: Star, value: "200+", label: "Brands Onboarded" },
-];
-
 const WHO_WE_SERVE = [
   { icon: GraduationCap, label: "Education" },
   { icon: HeartPulse, label: "Healthcare" },
@@ -222,21 +209,15 @@ export default async function Home() {
   const liveStats = await getStats();
   const liveTestimonials = await getTestimonials();
 
-  const heroStats = liveStats
-    ? liveStats.slice(0, 4).map((stat) => ({
-        icon: iconForStat(stat.label),
-        value: formatStatValue(stat),
-        label: stat.label,
-      }))
-    : HERO_STATS;
-
-  const networkStats = liveStats
-    ? liveStats.map((stat) => ({
-        icon: iconForStat(stat.label),
-        value: formatStatValue(stat),
-        label: stat.label,
-      }))
-    : NETWORK_STATS;
+  // Same mapping for live data and the snapshot fallback, so the two are
+  // visually identical in shape — only the source of the numbers differs.
+  const displayStats = (liveStats ?? SNAPSHOT_STATS).map((stat) => ({
+    icon: iconForStat(stat.label),
+    value: formatStatValue(stat),
+    label: stat.label,
+  }));
+  const heroStats = displayStats.slice(0, 4);
+  const networkStats = displayStats;
 
   const testimonials = liveTestimonials ?? FALLBACK_TESTIMONIALS;
 
