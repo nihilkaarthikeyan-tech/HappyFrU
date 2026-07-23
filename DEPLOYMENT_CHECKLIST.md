@@ -17,12 +17,17 @@ NEXT_PUBLIC_API_URL=https://<your-platform-api-domain>
 NEXT_PUBLIC_ADVERTISER_URL=https://<your-advertiser-app-domain>
 ```
 
-If these are missing, the code falls back to `http://localhost:8000/8002`:
+If these are missing:
 
-- Every "Start a Campaign" / "Log in" button sends visitors to
-  `localhost:8002` — a dead link on their machine.
-- Every contact-form and fleet-form submission fails with an error →
-  **every lead is lost** (this is exactly what spec item 1 fixed).
+- **CTAs are safe** (since 2026-07-23): when `NEXT_PUBLIC_ADVERTISER_URL` is
+  unset, `lib/platform.ts` points "Start a Campaign" at `/contact` instead of
+  a dead `localhost:8002` link, and hides the "Log in" link entirely. Set the
+  var and both revert to the real advertiser app automatically.
+- **Forms still fail**: every contact-form and fleet-form submission returns
+  502 and shows the error state → **no lead is captured**. There is no
+  workaround without a reachable API; the site deliberately never fakes
+  success for a lead it did not store. Phone/WhatsApp/email links still work,
+  so visitors retain a way to make contact.
 - Content sections (stats, pricing, testimonials, FAQ, coverage, blog, case
   studies) silently fall back to hardcoded copy — site renders, but static.
 

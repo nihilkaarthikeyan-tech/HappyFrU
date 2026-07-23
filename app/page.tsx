@@ -53,7 +53,7 @@ import WaveDivider from "@/components/WaveDivider";
 import LiveTicker from "@/components/LiveTicker";
 import SectionNav from "@/components/SectionNav";
 import { CONTACTS } from "@/lib/nav";
-import { ADVERTISER_URL } from "@/lib/platform";
+import { SIGNUP_URL } from "@/lib/platform";
 import {
   getStats,
   getTestimonials,
@@ -288,7 +288,7 @@ export default async function Home() {
               style={{ animationDelay: "150ms" }}
             >
               <TrackedLink
-                href={`${ADVERTISER_URL}/signup`}
+                href={SIGNUP_URL}
                 event="cta_click"
                 location="home_hero_start_campaign"
                 className="inline-flex items-center justify-center rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-navy-light hover:scale-105"

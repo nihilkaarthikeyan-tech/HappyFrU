@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { track } from "@vercel/analytics";
 import Logo from "./Logo";
 import { PRIMARY_NAV_LINKS } from "@/lib/nav";
-import { ADVERTISER_URL } from "@/lib/platform";
+import { HAS_ADVERTISER_APP, LOGIN_URL, SIGNUP_URL } from "@/lib/platform";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -47,15 +47,17 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden xl:flex shrink-0 items-center gap-4">
+          {HAS_ADVERTISER_APP && (
+            <a
+              href={LOGIN_URL}
+              onClick={() => track("cta_click", { location: "navbar_login" })}
+              className="whitespace-nowrap text-sm font-medium text-brand-navy/80 hover:text-brand-navy transition-colors"
+            >
+              Log in
+            </a>
+          )}
           <a
-            href={`${ADVERTISER_URL}/login`}
-            onClick={() => track("cta_click", { location: "navbar_login" })}
-            className="whitespace-nowrap text-sm font-medium text-brand-navy/80 hover:text-brand-navy transition-colors"
-          >
-            Log in
-          </a>
-          <a
-            href={`${ADVERTISER_URL}/signup`}
+            href={SIGNUP_URL}
             onClick={() => track("cta_click", { location: "navbar" })}
             className="inline-flex items-center whitespace-nowrap rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-navy-light transition-colors"
           >
@@ -86,18 +88,20 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            {HAS_ADVERTISER_APP && (
+              <a
+                href={LOGIN_URL}
+                className="py-2 text-sm font-medium text-brand-navy/80 hover:text-brand-navy"
+                onClick={() => {
+                  track("cta_click", { location: "navbar_mobile_login" });
+                  setOpen(false);
+                }}
+              >
+                Log in
+              </a>
+            )}
             <a
-              href={`${ADVERTISER_URL}/login`}
-              className="py-2 text-sm font-medium text-brand-navy/80 hover:text-brand-navy"
-              onClick={() => {
-                track("cta_click", { location: "navbar_mobile_login" });
-                setOpen(false);
-              }}
-            >
-              Log in
-            </a>
-            <a
-              href={`${ADVERTISER_URL}/signup`}
+              href={SIGNUP_URL}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
               onClick={() => {
                 track("cta_click", { location: "navbar_mobile" });

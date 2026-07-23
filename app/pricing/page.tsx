@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 import TrackedLink from "@/components/TrackedLink";
 import InvestmentCalculator from "@/components/InvestmentCalculator";
 import { getPlans, type Plan } from "@/lib/content";
-import { ADVERTISER_URL } from "@/lib/platform";
+import { SIGNUP_URL } from "@/lib/platform";
 
 export const metadata: Metadata = {
   title: "Pricing | HappyFrU",
@@ -167,7 +167,7 @@ export default async function PricingPage() {
                         </ul>
                       )}
                       <TrackedLink
-                        href={`${ADVERTISER_URL}/signup`}
+                        href={SIGNUP_URL}
                         event="cta_click"
                         location={`pricing_plan_${plan.name.toLowerCase()}`}
                         className="mt-6 inline-flex items-center justify-center rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-navy-light"
